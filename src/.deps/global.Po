@@ -1,0 +1,9 @@
+global.o global.o: global.cpp myTypes.h \
+  /usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stddef.h \
+  /usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stdint.h
+
+myTypes.h:
+
+/usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stddef.h:
+
+/usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stdint.h:

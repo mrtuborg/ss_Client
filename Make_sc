@@ -1,0 +1,13 @@
+cp  menuVariants/$1/$1_menuInit.cpp src/menuInit.cpp
+
+cp src/_auto_config.h src/auto_config.h
+REV="#define REVISION \""`svnversion`"\"" >> src/auto_config.h
+echo $REV >> src/auto_config.h
+
+make
+
+cp  src/ss_Client s$1_Client
+
+rm -f src/menuInit.cpp
+rm -f src/ss_Client
+rm -f src/auto_config.h
