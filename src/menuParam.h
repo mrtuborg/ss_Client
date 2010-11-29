@@ -1,7 +1,7 @@
 class menuParam
 {
   char *paramName;
-  MyType type;
+  OrtsType type;
   BYTE value[255];
   public:
     menuParam();
@@ -11,8 +11,8 @@ class menuParam
     
 
     errType printString();
-    errType paramConstruct(const char* parString, MyType parType, BYTE* defaultValue);
-    MyType getParamType();
+    errType paramConstruct(const char* parString, OrtsType parType, BYTE* defaultValue);
+    OrtsType getParamType();
     bool isVector();
     int getParamSize();
     

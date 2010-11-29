@@ -63,11 +63,13 @@ main.o main.o: main.cpp /usr/include/arpa/inet.h /usr/include/_types.h \
   /usr/include/c++/4.2.1/bits/stl_construct.h \
   /usr/include/c++/4.2.1/bits/stl_uninitialized.h \
   /usr/include/c++/4.2.1/bits/stl_deque.h \
-  /usr/include/c++/4.2.1/bits/deque.tcc myTypes.h buffer/ssBuffer.h \
-  udp/udp_port.h /usr/include/netinet/ip.h \
+  /usr/include/c++/4.2.1/bits/deque.tcc ../../rcsLib/rcsLib.h \
+  ../../rcsLib/../rcsLib/ortsTypes/ortsTypes.h \
+  ../../rcsLib/../rcsLib/rcsCmd/rcsCmd.h \
+  ../../rcsLib/../rcsLib/udp_port/udp_port.h /usr/include/netinet/ip.h \
   /usr/include/netinet/in_systm.h /usr/include/netinet/udp.h \
-  arg_parser/carg_parser.h console_out.h global.h ssCmd/cmd.h udpAction.h \
-  menuParam.h menuString.h menuInit.h
+  ../../rcsLib/../rcsLib/udpAction/udpAction.h arg_parser/carg_parser.h \
+  console_out.h global.h menuParam.h menuString.h menuInit.h
 
 /usr/include/arpa/inet.h:
 
@@ -277,11 +279,13 @@ main.o main.o: main.cpp /usr/include/arpa/inet.h /usr/include/_types.h \
 
 /usr/include/c++/4.2.1/bits/deque.tcc:
 
-myTypes.h:
+../../rcsLib/rcsLib.h:
 
-buffer/ssBuffer.h:
+../../rcsLib/../rcsLib/ortsTypes/ortsTypes.h:
 
-udp/udp_port.h:
+../../rcsLib/../rcsLib/rcsCmd/rcsCmd.h:
+
+../../rcsLib/../rcsLib/udp_port/udp_port.h:
 
 /usr/include/netinet/ip.h:
 
@@ -289,15 +293,13 @@ udp/udp_port.h:
 
 /usr/include/netinet/udp.h:
 
+../../rcsLib/../rcsLib/udpAction/udpAction.h:
+
 arg_parser/carg_parser.h:
 
 console_out.h:
 
 global.h:
-
-ssCmd/cmd.h:
-
-udpAction.h:
 
 menuParam.h:
 

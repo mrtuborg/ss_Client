@@ -1,4 +1,4 @@
-#include "myTypes.h"
+#include "../../ortsTypes/ortsTypes.h"
 
 int verbose_level=0;
 bool listen_mode=false;

@@ -1,10 +1,6 @@
 #include <netinet/in.h>
 #include <deque>
-#include "myTypes.h"
-#include "buffer/ssBuffer.h"
-#include "udp/udp_port.h"
-#include "ssCmd/cmd.h"
-#include "udpAction.h"
+#include "../../rcsLib/rcsLib.h"
 #include "menuParam.h"
 #include "menuString.h"
 BYTE menuLen=40;
@@ -29,11 +25,13 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[2]=new menuString(2,"Выключить СКСЮ", 0, 1, sndAct, rcvAct);
     menu[3]=new menuString(3,"Начать измерение", 7, 1, sndAct, rcvAct);
     menu[4]=new menuString(4,"Измерить нуль", 6, 1, sndAct, rcvAct);
-    menu[6]=new menuString(6,"Получить результат измерений", 0, 1, sndAct, rcvAct);
+    menu[5]=new menuString(5,"Проверка связи между сервером и АРМ СКСЮ", 0, 1, sndAct, rcvAct);
+    menu[6]=new menuString(6,"Подготовить результат измерений", 0, 1, sndAct, rcvAct);
     menu[7]=new menuString(7,"Обнулить базу измерений", 0, 1, sndAct, rcvAct);
     menu[8]=new menuString(8,"Начать тарировку", 5, 1, sndAct, rcvAct);
     menu[9]=new menuString(9,"Получить тарировочную точку", 12, 1, sndAct, rcvAct);
     menu[10]=new menuString(10,"Остановить тарировку", 5, 1, sndAct, rcvAct);
+    menu[11]=new menuString(11,"Получить результаты измерений", 0, 1, sndAct, rcvAct);
     
     menu[32]=new menuString(32,"Аварийное завершение работы подсистемы", 0, 1, sndAct, rcvAct);
     menu[33]=new menuString(33,"Смена оперативного режима службы",1, 1, sndAct, rcvAct);
@@ -86,6 +84,8 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[2]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &coord_type);
     menu[3]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
     menu[4]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
+    
+    menu[5]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
     
     menu[6]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &coord_type);
     

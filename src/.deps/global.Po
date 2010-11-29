@@ -1,8 +1,8 @@
-global.o global.o: global.cpp myTypes.h \
+global.o global.o: global.cpp ../../ortsTypes/ortsTypes.h \
   /usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stddef.h \
   /usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stdint.h
 
-myTypes.h:
+../../ortsTypes/ortsTypes.h:
 
 /usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stddef.h:
 

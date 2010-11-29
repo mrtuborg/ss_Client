@@ -1,10 +1,11 @@
 #include <netinet/in.h>
 #include <deque>
-#include "myTypes.h"
-#include "buffer/ssBuffer.h"
-#include "udp/udp_port.h"
-#include "ssCmd/cmd.h"
-#include "udpAction.h"
+#include "../../ortsTypes/ortsTypes.h"
+#include "../../rcsLib/rcsLib.h"
+//#include "buffer/ssBuffer.h"
+//#include "udp/udp_port.h"
+//#include "ssCmd/cmd.h"
+//#include "udpAction.h"
 #include "menuParam.h"
 #include "menuString.h"
 BYTE menuLen=40;

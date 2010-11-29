@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "myTypes.h"
+#include "../../ortsTypes/ortsTypes.h"
 #include "menuParam.h"
 
 menuParam::menuParam()
@@ -13,7 +13,7 @@ menuParam::~menuParam()
     delete paramName;
 }
 
-errType menuParam::paramConstruct(const char* parName, MyType parType, BYTE* defaultValue)
+errType menuParam::paramConstruct(const char* parName, OrtsType parType, BYTE* defaultValue)
 {
     errType result=err_not_init;
     paramName=new char[strlen(parName)+1];
@@ -28,7 +28,7 @@ errType menuParam::setParamValue(BYTE* newValue)
     errType result=err_not_init;
     WORD str_len=0;
 
-    switch((MyType)type)
+    switch((OrtsType)type)
     {
 	case type_CHAR: // char
 	    str_len=strlen((char*)newValue);
@@ -48,7 +48,7 @@ errType menuParam::setParamValue(BYTE* newValue)
 	    strcpy((char*)(value+2), (char*)newValue);
 	    break;
 	default: // BYTE(1), WORD(2)
-	    memcpy(value,newValue,lenMyTypes[type]);
+	    memcpy(value,newValue,lenOrtsTypes[type]);
 	    break;
     }
     return result;
@@ -82,7 +82,7 @@ errType menuParam::printString()
 {
     errType result=err_not_init;
     if (!paramName) return err_result_error;
-    switch((MyType)type)
+    switch((OrtsType)type)
     {
 	
 	case type_ERRTYPE: // char
@@ -94,11 +94,11 @@ errType menuParam::printString()
 	break;
 	
 	case type_DWORD: // DWORD
-	    printf("[ %s=%lu ]",  paramName, *((DWORD*)value));
+	    printf("[ %s=%d ]",  paramName, *((DWORD*)value));
 	break;
 	
 	case type_QWORD: // QWORD
-	    printf("[ %s=%lu ]",  paramName, *((QWORD*)value));
+	    printf("[ %s=%llu ]",  paramName, *((QWORD*)value));
 	break;
 	
 	case type_FLOAT: // float
@@ -130,7 +130,7 @@ errType menuParam::printString()
     return result;
 }
 
-MyType menuParam::getParamType()
+OrtsType menuParam::getParamType()
 {
     return type;
 }
@@ -139,7 +139,7 @@ int menuParam::getParamSize()
 {
     int result=0;
     if (!paramName) return err_result_error;
-    if (!isVector()) result=lenMyTypes[type];
+    if (!isVector()) result=lenOrtsTypes[type];
     else result=*(WORD*)value; // [0] - size
     return result;
 }

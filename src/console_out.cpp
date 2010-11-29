@@ -10,9 +10,6 @@ char Program_name[255]    = "Клиент консоли серверов СУК
 char program_name[255]    = "sc_Client";
 char program_year[255]    = "2010";
 
-#ifndef REVISION
-#define REVISION 0
-#endif
 
 void show_help( const char verbose )
 {

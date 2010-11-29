@@ -1,5 +1,5 @@
-udp_port.o udp_port.o: udp/udp_port.cpp /usr/include/stdio.h \
-  /usr/include/_types.h /usr/include/sys/_types.h \
+udp_port.o udp_port.o: ../../rcsLib/udp_port/udp_port.cpp \
+  /usr/include/stdio.h /usr/include/_types.h /usr/include/sys/_types.h \
   /usr/include/sys/cdefs.h /usr/include/machine/_types.h \
   /usr/include/i386/_types.h /usr/include/sys/types.h \
   /usr/include/sys/appleapiopts.h /usr/include/machine/types.h \
@@ -76,8 +76,9 @@ udp_port.o udp_port.o: udp/udp_port.cpp /usr/include/stdio.h \
   /usr/include/c++/4.2.1/bits/stl_vector.h \
   /usr/include/c++/4.2.1/bits/stl_bvector.h \
   /usr/include/c++/4.2.1/bits/vector.tcc \
-  /usr/include/c++/4.2.1/bits/stl_queue.h udp/../myTypes.h \
-  udp/../buffer/ssBuffer.h udp/udp_port.h udp/../global.h
+  /usr/include/c++/4.2.1/bits/stl_queue.h \
+  ../../rcsLib/udp_port/../ortsTypes/ortsTypes.h \
+  ../../rcsLib/udp_port/udp_port.h
 
 /usr/include/stdio.h:
 
@@ -327,10 +328,6 @@ udp_port.o udp_port.o: udp/udp_port.cpp /usr/include/stdio.h \
 
 /usr/include/c++/4.2.1/bits/stl_queue.h:
 
-udp/../myTypes.h:
+../../rcsLib/udp_port/../ortsTypes/ortsTypes.h:
 
-udp/../buffer/ssBuffer.h:
-
-udp/udp_port.h:
-
-udp/../global.h:
+../../rcsLib/udp_port/udp_port.h:

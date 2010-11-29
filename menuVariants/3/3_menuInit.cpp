@@ -1,10 +1,6 @@
 #include <netinet/in.h>
 #include <deque>
-#include "myTypes.h"
-#include "buffer/ssBuffer.h"
-#include "udp/udp_port.h"
-#include "ssCmd/cmd.h"
-#include "udpAction.h"
+#include "../../rcsLib/rcsLib.h"
 #include "menuParam.h"
 #include "menuString.h"
 BYTE menuLen=40;
@@ -38,8 +34,7 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[11]=new menuString(11,"Остановить укрытие", 0, 1, sndAct, rcvAct);
     menu[12]=new menuString(12,"Получить параметры створки", 1, 3, sndAct, rcvAct);
     menu[13]=new menuString(13,"Получить параметры полуосей", 1, 2, sndAct, rcvAct);
-    menu[14]=new menuString(14,"Режим удалённого управления", 0, 1, sndAct, rcvAct);
-    menu[15]=new menuString(15,"Режим местного управления", 0, 1, sndAct, rcvAct);
+    menu[14]=new menuString(14,"Сменить режим управления", 1, 1, sndAct, rcvAct);
     menu[16]=new menuString(16,"Запуск процесса контроля функционирования САУ",0,1, sndAct, rcvAct);
     menu[17]=new menuString(17,"Произвести коррекцию гидроцилиндров",0,1, sndAct, rcvAct);
 
@@ -55,6 +50,7 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[8]->paramsConstruct(0, "Номер створки", type_BYTE, &zeroValue);
     menu[12]->paramsConstruct(0, "Номер створки", type_BYTE, &zeroValue);    
     menu[13]->paramsConstruct(0, "Номер полуоси", type_BYTE, &zeroValue);
+    menu[14]->paramsConstruct(0, "Режим (0-ЦПУ, 1-ПДУ, 2-ПМУ)", type_BYTE, &zeroValue);
     
     menu[33]->paramsConstruct(0, "Новый оперативный режим", type_BYTE, &zeroValue);
     
@@ -88,7 +84,7 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     
     
     menu[14]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &coord_type);
-    menu[15]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &coord_type);
+    //menu[15]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &coord_type);
     menu[16]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &coord_type);
     menu[17]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &coord_type);
     

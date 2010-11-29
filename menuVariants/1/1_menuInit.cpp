@@ -23,7 +23,7 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     errType result=err_not_init;
                                 
     
-    for (int i=0; i<menuLen; i++) menu[i]=0; // Обнуляем всё
+    for (int i=0; i<menuLen; i++) menu[i]=0;
     
     menu[1]=new menuString(1,"Задать основное технологическое расписание", 2, 1, sndAct, rcvAct);
     menu[2]=new menuString(2,"Задать аварийное технологическое расписание", 1, 1, sndAct, rcvAct);

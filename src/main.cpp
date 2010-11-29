@@ -4,17 +4,21 @@
 #include <stdlib.h>
 #include <string.h>
 #include <deque>
-#include "myTypes.h"
-#include "buffer/ssBuffer.h"
-#include "udp/udp_port.h"
+#include "../../rcsLib/rcsLib.h"
+
+//#include "myTypes.h"
+//#include "buffer/ssBuffer.h"
+//#include "udp/udp_port.h"
 #include "arg_parser/carg_parser.h"
 #include "console_out.h"
 #include "global.h"
-#include "ssCmd/cmd.h"
-#include "udpAction.h"
+//#include "ssCmd/cmd.h"
+//#include "udpAction.h"
 #include "menuParam.h"
 #include "menuString.h"
 #include "menuInit.h"
+
+
 
 
 errType process_cmdLine(int argc, char *argv[])
@@ -163,9 +167,9 @@ int main(char argc, char *argv[]) {
 	BYTE *buffer, *pattern, *reaction;
 	BYTE *listen_buffer;
 	size_t sz[1]={0}, pattern_length=0, reaction_length=0, listen_sz=0;
-
+    //    printf("ret=%d\n", ret);
 	if(ret!=err_result_ok) exit(1);
-	
+//	printf("pt2\n");
 	uPort=new udp_port(wUdp);
         rcvPort=new udp_port(wUdp+1);
         

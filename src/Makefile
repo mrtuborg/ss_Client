@@ -47,10 +47,10 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_ss_Client_OBJECTS = main.$(OBJEXT) global.$(OBJEXT) \
-	carg_parser.$(OBJEXT) udp_port.$(OBJEXT) myTypes.$(OBJEXT) \
-	console_out.$(OBJEXT) menuParam.$(OBJEXT) menuString.$(OBJEXT) \
-	menuInit.$(OBJEXT) udpAction.$(OBJEXT) ssBuffer.$(OBJEXT) \
-	cmd.$(OBJEXT) crc16.$(OBJEXT)
+	carg_parser.$(OBJEXT) console_out.$(OBJEXT) \
+	menuParam.$(OBJEXT) menuString.$(OBJEXT) menuInit.$(OBJEXT) \
+	udpAction.$(OBJEXT) rcsCmd.$(OBJEXT) ortsTypes.$(OBJEXT) \
+	udp_port.$(OBJEXT) crc16.$(OBJEXT)
 ss_Client_OBJECTS = $(am_ss_Client_OBJECTS)
 ss_Client_LDADD = $(LDADD)
 ss_Client_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
@@ -163,16 +163,22 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-ss_Client_SOURCES = main.cpp global.cpp arg_parser/carg_parser.cpp udp/udp_port.cpp \
-			       myTypes.cpp myTypes.h console_out.cpp console_out.h\
-		               global.h arg_parser/carg_parser.h udp/udp_port.h\
-		               menuParam.cpp menuParam.h\
-		               menuString.cpp menuString.h\
-		               menuInit.cpp menuInit.h\
-		               udpAction.cpp udpAction.h\
-		               buffer/ssBuffer.h buffer/ssBuffer.cpp\
-		               ssCmd/cmd.h ssCmd/cmd.cpp\
-		               crc16.h crc16.cpp
+ss_Client_SOURCES = main.cpp global.cpp arg_parser/carg_parser.cpp\
+				console_out.cpp console_out.h\
+				global.h arg_parser/carg_parser.h \
+				menuParam.cpp menuParam.h\
+				menuString.cpp menuString.h\
+				menuInit.cpp menuInit.h\
+				../../rcsLib/udpAction/udpAction.cpp\
+				../../rcsLib/udpAction/udpAction.h\
+				../../rcsLib/rcsCmd/rcsCmd.cpp\
+				../../rcsLib/rcsCmd/rcsCmd.h\
+				../../rcsLib/ortsTypes/ortsTypes.cpp\
+				../../rcsLib/ortsTypes/ortsTypes.h\
+				../../rcsLib/udp_port/udp_port.cpp\
+				../../rcsLib/udp_port/udp_port.h\
+				../../rcsLib/crc/crc16.cpp\
+				../../rcsLib/crc/crc16.h
 
 ss_Client_LDFLAGS = -pthread
 all: auto_config.h
@@ -275,7 +281,6 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/carg_parser.Po
-include ./$(DEPDIR)/cmd.Po
 include ./$(DEPDIR)/console_out.Po
 include ./$(DEPDIR)/crc16.Po
 include ./$(DEPDIR)/global.Po
@@ -283,8 +288,8 @@ include ./$(DEPDIR)/main.Po
 include ./$(DEPDIR)/menuInit.Po
 include ./$(DEPDIR)/menuParam.Po
 include ./$(DEPDIR)/menuString.Po
-include ./$(DEPDIR)/myTypes.Po
-include ./$(DEPDIR)/ssBuffer.Po
+include ./$(DEPDIR)/ortsTypes.Po
+include ./$(DEPDIR)/rcsCmd.Po
 include ./$(DEPDIR)/udpAction.Po
 include ./$(DEPDIR)/udp_port.Po
 
@@ -316,47 +321,75 @@ carg_parser.obj: arg_parser/carg_parser.cpp
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o carg_parser.obj `if test -f 'arg_parser/carg_parser.cpp'; then $(CYGPATH_W) 'arg_parser/carg_parser.cpp'; else $(CYGPATH_W) '$(srcdir)/arg_parser/carg_parser.cpp'; fi`
 
-udp_port.o: udp/udp_port.cpp
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT udp_port.o -MD -MP -MF $(DEPDIR)/udp_port.Tpo -c -o udp_port.o `test -f 'udp/udp_port.cpp' || echo '$(srcdir)/'`udp/udp_port.cpp
+udpAction.o: ../../rcsLib/udpAction/udpAction.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT udpAction.o -MD -MP -MF $(DEPDIR)/udpAction.Tpo -c -o udpAction.o `test -f '../../rcsLib/udpAction/udpAction.cpp' || echo '$(srcdir)/'`../../rcsLib/udpAction/udpAction.cpp
+	$(am__mv) $(DEPDIR)/udpAction.Tpo $(DEPDIR)/udpAction.Po
+#	source='../../rcsLib/udpAction/udpAction.cpp' object='udpAction.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o udpAction.o `test -f '../../rcsLib/udpAction/udpAction.cpp' || echo '$(srcdir)/'`../../rcsLib/udpAction/udpAction.cpp
+
+udpAction.obj: ../../rcsLib/udpAction/udpAction.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT udpAction.obj -MD -MP -MF $(DEPDIR)/udpAction.Tpo -c -o udpAction.obj `if test -f '../../rcsLib/udpAction/udpAction.cpp'; then $(CYGPATH_W) '../../rcsLib/udpAction/udpAction.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/udpAction/udpAction.cpp'; fi`
+	$(am__mv) $(DEPDIR)/udpAction.Tpo $(DEPDIR)/udpAction.Po
+#	source='../../rcsLib/udpAction/udpAction.cpp' object='udpAction.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o udpAction.obj `if test -f '../../rcsLib/udpAction/udpAction.cpp'; then $(CYGPATH_W) '../../rcsLib/udpAction/udpAction.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/udpAction/udpAction.cpp'; fi`
+
+rcsCmd.o: ../../rcsLib/rcsCmd/rcsCmd.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT rcsCmd.o -MD -MP -MF $(DEPDIR)/rcsCmd.Tpo -c -o rcsCmd.o `test -f '../../rcsLib/rcsCmd/rcsCmd.cpp' || echo '$(srcdir)/'`../../rcsLib/rcsCmd/rcsCmd.cpp
+	$(am__mv) $(DEPDIR)/rcsCmd.Tpo $(DEPDIR)/rcsCmd.Po
+#	source='../../rcsLib/rcsCmd/rcsCmd.cpp' object='rcsCmd.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o rcsCmd.o `test -f '../../rcsLib/rcsCmd/rcsCmd.cpp' || echo '$(srcdir)/'`../../rcsLib/rcsCmd/rcsCmd.cpp
+
+rcsCmd.obj: ../../rcsLib/rcsCmd/rcsCmd.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT rcsCmd.obj -MD -MP -MF $(DEPDIR)/rcsCmd.Tpo -c -o rcsCmd.obj `if test -f '../../rcsLib/rcsCmd/rcsCmd.cpp'; then $(CYGPATH_W) '../../rcsLib/rcsCmd/rcsCmd.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/rcsCmd/rcsCmd.cpp'; fi`
+	$(am__mv) $(DEPDIR)/rcsCmd.Tpo $(DEPDIR)/rcsCmd.Po
+#	source='../../rcsLib/rcsCmd/rcsCmd.cpp' object='rcsCmd.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o rcsCmd.obj `if test -f '../../rcsLib/rcsCmd/rcsCmd.cpp'; then $(CYGPATH_W) '../../rcsLib/rcsCmd/rcsCmd.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/rcsCmd/rcsCmd.cpp'; fi`
+
+ortsTypes.o: ../../rcsLib/ortsTypes/ortsTypes.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ortsTypes.o -MD -MP -MF $(DEPDIR)/ortsTypes.Tpo -c -o ortsTypes.o `test -f '../../rcsLib/ortsTypes/ortsTypes.cpp' || echo '$(srcdir)/'`../../rcsLib/ortsTypes/ortsTypes.cpp
+	$(am__mv) $(DEPDIR)/ortsTypes.Tpo $(DEPDIR)/ortsTypes.Po
+#	source='../../rcsLib/ortsTypes/ortsTypes.cpp' object='ortsTypes.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ortsTypes.o `test -f '../../rcsLib/ortsTypes/ortsTypes.cpp' || echo '$(srcdir)/'`../../rcsLib/ortsTypes/ortsTypes.cpp
+
+ortsTypes.obj: ../../rcsLib/ortsTypes/ortsTypes.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ortsTypes.obj -MD -MP -MF $(DEPDIR)/ortsTypes.Tpo -c -o ortsTypes.obj `if test -f '../../rcsLib/ortsTypes/ortsTypes.cpp'; then $(CYGPATH_W) '../../rcsLib/ortsTypes/ortsTypes.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/ortsTypes/ortsTypes.cpp'; fi`
+	$(am__mv) $(DEPDIR)/ortsTypes.Tpo $(DEPDIR)/ortsTypes.Po
+#	source='../../rcsLib/ortsTypes/ortsTypes.cpp' object='ortsTypes.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ortsTypes.obj `if test -f '../../rcsLib/ortsTypes/ortsTypes.cpp'; then $(CYGPATH_W) '../../rcsLib/ortsTypes/ortsTypes.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/ortsTypes/ortsTypes.cpp'; fi`
+
+udp_port.o: ../../rcsLib/udp_port/udp_port.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT udp_port.o -MD -MP -MF $(DEPDIR)/udp_port.Tpo -c -o udp_port.o `test -f '../../rcsLib/udp_port/udp_port.cpp' || echo '$(srcdir)/'`../../rcsLib/udp_port/udp_port.cpp
 	$(am__mv) $(DEPDIR)/udp_port.Tpo $(DEPDIR)/udp_port.Po
-#	source='udp/udp_port.cpp' object='udp_port.o' libtool=no \
+#	source='../../rcsLib/udp_port/udp_port.cpp' object='udp_port.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o udp_port.o `test -f 'udp/udp_port.cpp' || echo '$(srcdir)/'`udp/udp_port.cpp
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o udp_port.o `test -f '../../rcsLib/udp_port/udp_port.cpp' || echo '$(srcdir)/'`../../rcsLib/udp_port/udp_port.cpp
 
-udp_port.obj: udp/udp_port.cpp
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT udp_port.obj -MD -MP -MF $(DEPDIR)/udp_port.Tpo -c -o udp_port.obj `if test -f 'udp/udp_port.cpp'; then $(CYGPATH_W) 'udp/udp_port.cpp'; else $(CYGPATH_W) '$(srcdir)/udp/udp_port.cpp'; fi`
+udp_port.obj: ../../rcsLib/udp_port/udp_port.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT udp_port.obj -MD -MP -MF $(DEPDIR)/udp_port.Tpo -c -o udp_port.obj `if test -f '../../rcsLib/udp_port/udp_port.cpp'; then $(CYGPATH_W) '../../rcsLib/udp_port/udp_port.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/udp_port/udp_port.cpp'; fi`
 	$(am__mv) $(DEPDIR)/udp_port.Tpo $(DEPDIR)/udp_port.Po
-#	source='udp/udp_port.cpp' object='udp_port.obj' libtool=no \
+#	source='../../rcsLib/udp_port/udp_port.cpp' object='udp_port.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o udp_port.obj `if test -f 'udp/udp_port.cpp'; then $(CYGPATH_W) 'udp/udp_port.cpp'; else $(CYGPATH_W) '$(srcdir)/udp/udp_port.cpp'; fi`
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o udp_port.obj `if test -f '../../rcsLib/udp_port/udp_port.cpp'; then $(CYGPATH_W) '../../rcsLib/udp_port/udp_port.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/udp_port/udp_port.cpp'; fi`
 
-ssBuffer.o: buffer/ssBuffer.cpp
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ssBuffer.o -MD -MP -MF $(DEPDIR)/ssBuffer.Tpo -c -o ssBuffer.o `test -f 'buffer/ssBuffer.cpp' || echo '$(srcdir)/'`buffer/ssBuffer.cpp
-	$(am__mv) $(DEPDIR)/ssBuffer.Tpo $(DEPDIR)/ssBuffer.Po
-#	source='buffer/ssBuffer.cpp' object='ssBuffer.o' libtool=no \
+crc16.o: ../../rcsLib/crc/crc16.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT crc16.o -MD -MP -MF $(DEPDIR)/crc16.Tpo -c -o crc16.o `test -f '../../rcsLib/crc/crc16.cpp' || echo '$(srcdir)/'`../../rcsLib/crc/crc16.cpp
+	$(am__mv) $(DEPDIR)/crc16.Tpo $(DEPDIR)/crc16.Po
+#	source='../../rcsLib/crc/crc16.cpp' object='crc16.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ssBuffer.o `test -f 'buffer/ssBuffer.cpp' || echo '$(srcdir)/'`buffer/ssBuffer.cpp
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o crc16.o `test -f '../../rcsLib/crc/crc16.cpp' || echo '$(srcdir)/'`../../rcsLib/crc/crc16.cpp
 
-ssBuffer.obj: buffer/ssBuffer.cpp
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ssBuffer.obj -MD -MP -MF $(DEPDIR)/ssBuffer.Tpo -c -o ssBuffer.obj `if test -f 'buffer/ssBuffer.cpp'; then $(CYGPATH_W) 'buffer/ssBuffer.cpp'; else $(CYGPATH_W) '$(srcdir)/buffer/ssBuffer.cpp'; fi`
-	$(am__mv) $(DEPDIR)/ssBuffer.Tpo $(DEPDIR)/ssBuffer.Po
-#	source='buffer/ssBuffer.cpp' object='ssBuffer.obj' libtool=no \
+crc16.obj: ../../rcsLib/crc/crc16.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT crc16.obj -MD -MP -MF $(DEPDIR)/crc16.Tpo -c -o crc16.obj `if test -f '../../rcsLib/crc/crc16.cpp'; then $(CYGPATH_W) '../../rcsLib/crc/crc16.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/crc/crc16.cpp'; fi`
+	$(am__mv) $(DEPDIR)/crc16.Tpo $(DEPDIR)/crc16.Po
+#	source='../../rcsLib/crc/crc16.cpp' object='crc16.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ssBuffer.obj `if test -f 'buffer/ssBuffer.cpp'; then $(CYGPATH_W) 'buffer/ssBuffer.cpp'; else $(CYGPATH_W) '$(srcdir)/buffer/ssBuffer.cpp'; fi`
-
-cmd.o: ssCmd/cmd.cpp
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT cmd.o -MD -MP -MF $(DEPDIR)/cmd.Tpo -c -o cmd.o `test -f 'ssCmd/cmd.cpp' || echo '$(srcdir)/'`ssCmd/cmd.cpp
-	$(am__mv) $(DEPDIR)/cmd.Tpo $(DEPDIR)/cmd.Po
-#	source='ssCmd/cmd.cpp' object='cmd.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o cmd.o `test -f 'ssCmd/cmd.cpp' || echo '$(srcdir)/'`ssCmd/cmd.cpp
-
-cmd.obj: ssCmd/cmd.cpp
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT cmd.obj -MD -MP -MF $(DEPDIR)/cmd.Tpo -c -o cmd.obj `if test -f 'ssCmd/cmd.cpp'; then $(CYGPATH_W) 'ssCmd/cmd.cpp'; else $(CYGPATH_W) '$(srcdir)/ssCmd/cmd.cpp'; fi`
-	$(am__mv) $(DEPDIR)/cmd.Tpo $(DEPDIR)/cmd.Po
-#	source='ssCmd/cmd.cpp' object='cmd.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o cmd.obj `if test -f 'ssCmd/cmd.cpp'; then $(CYGPATH_W) 'ssCmd/cmd.cpp'; else $(CYGPATH_W) '$(srcdir)/ssCmd/cmd.cpp'; fi`
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o crc16.obj `if test -f '../../rcsLib/crc/crc16.cpp'; then $(CYGPATH_W) '../../rcsLib/crc/crc16.cpp'; else $(CYGPATH_W) '$(srcdir)/../../rcsLib/crc/crc16.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \

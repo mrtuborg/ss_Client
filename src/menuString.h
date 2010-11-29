@@ -14,8 +14,8 @@ class menuString
     errType printParams();
     errType printResults();
     errType printString();
-    errType paramsConstruct(BYTE parNo, const char* parName, MyType parType, BYTE* defaultValue);
-    errType resultsConstruct(BYTE resNo, const char* resName, MyType resType, BYTE* defaultValue);
+    errType paramsConstruct(BYTE parNo, const char* parName, OrtsType parType, BYTE* defaultValue);
+    errType resultsConstruct(BYTE resNo, const char* resName, OrtsType resType, BYTE* defaultValue);
     errType setParamValue(BYTE itemNo, BYTE* value);
     errType getParamValue(BYTE itemNo, BYTE** value);
     errType setResultValue(BYTE itemNo, BYTE* value);
@@ -24,7 +24,8 @@ class menuString
     errType mainLoop();
     errType execMenu();
     errType execFunc();
-    errType readAnswer();
-    errType convertAnswerToStrings(char **strings);
-    errType printAnswer(char **strings);
+    errType readAnswer(char** strings);
+    errType convertAnswerToStrings(char** strings);
+    errType printAnswer(char** strings);
+    errType paramToStringDecode(const void* ptr, OrtsType paramType, char** string);
 };

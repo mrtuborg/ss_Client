@@ -1,5 +1,5 @@
-udpAction.o udpAction.o: udpAction.cpp /usr/include/stdio.h \
-  /usr/include/_types.h /usr/include/sys/_types.h \
+udpAction.o udpAction.o: ../../rcsLib/udpAction/udpAction.cpp \
+  /usr/include/stdio.h /usr/include/_types.h /usr/include/sys/_types.h \
   /usr/include/sys/cdefs.h /usr/include/machine/_types.h \
   /usr/include/i386/_types.h /usr/include/string.h /usr/include/pthread.h \
   /usr/include/pthread_impl.h /usr/include/sched.h /usr/include/time.h \
@@ -65,10 +65,12 @@ udpAction.o udpAction.o: udpAction.cpp /usr/include/stdio.h \
   /usr/include/c++/4.2.1/bits/stl_construct.h \
   /usr/include/c++/4.2.1/bits/stl_uninitialized.h \
   /usr/include/c++/4.2.1/bits/stl_deque.h \
-  /usr/include/c++/4.2.1/bits/deque.tcc myTypes.h buffer/ssBuffer.h \
-  udp/udp_port.h /usr/include/netinet/ip.h \
-  /usr/include/netinet/in_systm.h /usr/include/netinet/udp.h ssCmd/cmd.h \
-  udpAction.h global.h
+  /usr/include/c++/4.2.1/bits/deque.tcc \
+  ../../rcsLib/udpAction/../ortsTypes/ortsTypes.h \
+  ../../rcsLib/udpAction/../udp_port/udp_port.h /usr/include/netinet/ip.h \
+  /usr/include/netinet/in_systm.h /usr/include/netinet/udp.h \
+  ../../rcsLib/udpAction/../rcsCmd/rcsCmd.h \
+  ../../rcsLib/udpAction/udpAction.h
 
 /usr/include/stdio.h:
 
@@ -278,11 +280,9 @@ udpAction.o udpAction.o: udpAction.cpp /usr/include/stdio.h \
 
 /usr/include/c++/4.2.1/bits/deque.tcc:
 
-myTypes.h:
+../../rcsLib/udpAction/../ortsTypes/ortsTypes.h:
 
-buffer/ssBuffer.h:
-
-udp/udp_port.h:
+../../rcsLib/udpAction/../udp_port/udp_port.h:
 
 /usr/include/netinet/ip.h:
 
@@ -290,8 +290,6 @@ udp/udp_port.h:
 
 /usr/include/netinet/udp.h:
 
-ssCmd/cmd.h:
+../../rcsLib/udpAction/../rcsCmd/rcsCmd.h:
 
-udpAction.h:
-
-global.h:
+../../rcsLib/udpAction/udpAction.h:

@@ -64,10 +64,12 @@ menuInit.o menuInit.o: menuInit.cpp /usr/include/netinet/in.h \
   /usr/include/c++/4.2.1/bits/stl_construct.h \
   /usr/include/c++/4.2.1/bits/stl_uninitialized.h \
   /usr/include/c++/4.2.1/bits/stl_deque.h \
-  /usr/include/c++/4.2.1/bits/deque.tcc myTypes.h buffer/ssBuffer.h \
-  udp/udp_port.h /usr/include/netinet/ip.h \
-  /usr/include/netinet/in_systm.h /usr/include/netinet/udp.h ssCmd/cmd.h \
-  udpAction.h menuParam.h menuString.h
+  /usr/include/c++/4.2.1/bits/deque.tcc ../../ortsTypes/ortsTypes.h \
+  ../../rcsLib/rcsLib.h ../../rcsLib/../rcsLib/ortsTypes/ortsTypes.h \
+  ../../rcsLib/../rcsLib/rcsCmd/rcsCmd.h \
+  ../../rcsLib/../rcsLib/udp_port/udp_port.h /usr/include/netinet/ip.h \
+  /usr/include/netinet/in_systm.h /usr/include/netinet/udp.h \
+  ../../rcsLib/../rcsLib/udpAction/udpAction.h menuParam.h menuString.h
 
 /usr/include/netinet/in.h:
 
@@ -275,11 +277,15 @@ menuInit.o menuInit.o: menuInit.cpp /usr/include/netinet/in.h \
 
 /usr/include/c++/4.2.1/bits/deque.tcc:
 
-myTypes.h:
+../../ortsTypes/ortsTypes.h:
 
-buffer/ssBuffer.h:
+../../rcsLib/rcsLib.h:
 
-udp/udp_port.h:
+../../rcsLib/../rcsLib/ortsTypes/ortsTypes.h:
+
+../../rcsLib/../rcsLib/rcsCmd/rcsCmd.h:
+
+../../rcsLib/../rcsLib/udp_port/udp_port.h:
 
 /usr/include/netinet/ip.h:
 
@@ -287,9 +293,7 @@ udp/udp_port.h:
 
 /usr/include/netinet/udp.h:
 
-ssCmd/cmd.h:
-
-udpAction.h:
+../../rcsLib/../rcsLib/udpAction/udpAction.h:
 
 menuParam.h:
 

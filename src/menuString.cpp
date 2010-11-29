@@ -4,11 +4,9 @@
 #include <deque>
 #include <string.h>
 
-#include "myTypes.h"
-#include "buffer/ssBuffer.h"
-#include "udp/udp_port.h"
-#include "ssCmd/cmd.h"
-#include "udpAction.h"
+#include "../../ortsTypes/ortsTypes.h"
+#include "../../rcsLib/rcsLib.h"
+
 #include "menuParam.h"
 #include "menuString.h"
 #include "global.h"
@@ -98,14 +96,14 @@ errType menuString::printString()
     return result;
 }
 
-errType menuString::paramsConstruct(BYTE parNo, const char* parName, MyType parType, BYTE* defaultValue)
+errType menuString::paramsConstruct(BYTE parNo, const char* parName, OrtsType parType, BYTE* defaultValue)
 {
     errType result=err_not_init;
     if (parNo<paramsQnty) paramStrings[parNo]->paramConstruct(parName, parType, defaultValue);
     return result;
 }
 
-errType menuString::resultsConstruct(BYTE resNo, const char* resName, MyType resType, BYTE* defaultValue)
+errType menuString::resultsConstruct(BYTE resNo, const char* resName, OrtsType resType, BYTE* defaultValue)
 {
     errType result=err_not_init;
     if (resNo<resultsQnty) resultStrings[resNo]->paramConstruct(resName, resType, defaultValue);
@@ -149,7 +147,7 @@ errType menuString::execMenu()
     char strVal[255];
     int intVal=0;
     DWORD dwdVal=0;
-    DWORD qwdVal=0;
+    QWORD qwdVal=0;
     float fltVal=0;
     double dblVal=0;
     
@@ -182,19 +180,19 @@ errType menuString::execMenu()
 	    {
 		printf("\tНовое значение: ");
 		switch (paramStrings[choosen-1]->getParamType()){
-		    case type_CHAR: scanf("%c", (char*) &strVal[0]);
+		    case type_CHAR: scanf("%c", (char*)strVal);
 			    value=(BYTE*)strVal;
 			    break;
-		    case type_DWORD: scanf("%lu", (long unsigned int*) &dwdVal);
+		    case type_DWORD: scanf("%u", &dwdVal);
 			    value=(BYTE*)&dwdVal;
 			    break;
-		    case type_QWORD: scanf("%lu", (long unsigned int*) &qwdVal);
+		    case type_QWORD: scanf("%llu", &qwdVal);
 			    value=(BYTE*)&qwdVal;
 			    break;
 		    case type_FLOAT: scanf("%f", &fltVal);
 			    value=(BYTE*)&fltVal;
 			    break;
-		    case type_DOUBLE: scanf("%e", (float*) &dblVal);
+		    case type_DOUBLE: scanf("%lf", &dblVal);
 			    value=(BYTE*)&dblVal;
 			    break;
 		    case type_BYTE: scanf("%d", &intVal);
@@ -236,26 +234,31 @@ errType menuString::execFunc()
 	errType result=err_not_init;
 	BYTE* param;
 	BYTE paramsContainer[1024];
-	cmd actionCmd;
-	int offset=0;
+	rcsCmd actionCmd(0,itemId); // i don't know number of service
+	DWORD offset=0;
 	int size=0;
+	OrtsType type;
     
 	printf("\tЗапуск на исполнение функции \"%s\"\n\n",itemName );
 	
-	
+	actionCmd.eraseParams();
+
 	for (int i=0; i<paramsQnty; i++)
 	{
 	    paramStrings[i]->getParamValue(&param);
-	    
-	    if (paramStrings[i]->isVector()) size=*(WORD*)param+sizeof(WORD);
-	    else size=paramStrings[i]->getParamSize();
-	    
-	    memcpy(paramsContainer+offset,param,size);
-	    offset+=size;
+	    type=paramStrings[i]->getParamType();
+	    if (paramStrings[i]->isVector()) {
+		size=*(WORD*)param+sizeof(WORD);
+		
+	    }
+	    else{ 
+		size=paramStrings[i]->getParamSize();
+	    }
+	    actionCmd.pushParam(type, param);
 	}
-    
 	
-	actionCmd.encode(itemId,offset,paramsContainer);
+	
+    
 	actionCmd.makeSign();
 	printf("\t");
 	actionCmd.dbgPrint();
@@ -268,85 +271,57 @@ errType menuString::execFunc()
         return result;
 }
 
-errType menuString::convertAnswerToStrings(char** strings)
-{
-	errType result=err_not_init;
-	MyType var_type;
-	BYTE typeLen;
-	WORD var_length;
-	WORD offset=0;
-	WORD resultsCount=0;
-	for (int i=0; i<resultsQnty; i++) {
-		
-		// IMPORTANT: need to split on (var_length/sizeof(type)) scalar parameters
-		    var_type=(MyType)(resultStrings[i]->getParamType()&0x0F); // Scalarize type!
-		    typeLen=lenMyTypes[resultStrings[i]->getParamType()];
-		    
-		    
-		    
-		    
-		if (!resultStrings[i]->isVector()) {
-		    var_length=resultStrings[i]->getParamSize();
-		    result=RecvEvent->paramToStringDecode(offset, var_type, &strings[resultsCount++]); // if comment this - programm crashes!
-		    
-		    //if result!=err_result_ok, next values - not true
-		    if ((var_type==type_ERRTYPE) && (*(BYTE*)RecvEvent->getParamPtr(offset)!=(BYTE)err_result_ok)) resultsQnty=resultsCount;
-		    
-		    offset+=var_length;
-		} else {
-		    var_length=*(WORD*)RecvEvent->getParamPtr(offset); // getParamSize not working i-?
-		    
-		    // need to compare var_length and remain size for reading
-		    offset+=2;
-		    WORD var_qnty=var_length/typeLen;
-		    strings[resultsCount]=new char[2];
-		    *(WORD*)strings[resultsCount]=var_qnty;
-		    resultsCount+=1;
-		    //read one vector
-		    for (int p=0; p<var_length; p+=typeLen) {
-			if ((offset+typeLen) <= RecvEvent->getParamLength()) {
-			    result=RecvEvent->paramToStringDecode(offset, var_type, &strings[resultsCount++]);
-			    offset+=typeLen;
-			} else {
-			    result=err_params_decode;
-			    break;
-			}
-			
-		    }
-		    //printf("read vector end\n");
-		}
-	    }
-	    
-	
-	return result;
-}
-
-errType menuString::readAnswer()
+errType menuString::readAnswer(char** strings)
 {
 	errType result=err_not_init;
 	BYTE *data;
 	DWORD length;
-        cmd actionCmd;
-	
+        rcsCmd *actionCmd;
+        WORD size;
+        OrtsType type;
 	result=RecvEvent->processAction();
-	
 	if (RecvEvent->isCmdExists()) 
 	{
 	    
-	    data=new BYTE[1024];
+	    if (RecvEvent->readDataAsCmd(&actionCmd)==err_result_ok)
+	    {
+		data=new BYTE[1024];
+		//actionCmd->dbgPrint();
+		actionCmd->decode(data);
+		actionCmd->checkSign();
+		length=actionCmd->getCmdLength();
+		printf("\tПринят ответ адресата: [");
+		for (int i=0; i<length; i++) {
+		   printf("%.2X ",data[i]);
+		}    
+		printf("]\n\n",length);
+		delete data;
 	    
-	    RecvEvent->readData(&data, &length);
+		
+		for (int i=0; i< resultsQnty; i++)
+		{
+		    type=resultStrings[i]->getParamType();
+		    data=(BYTE*)actionCmd->popParam(type);
+		    
+		    paramToStringDecode(data, type, &strings[i]);
+		    
+		    if ((type&0xF0)!=0) // is vector
+		    {
+		      size=*(WORD*)data;
+		      data+=2;
+		    } else { //is scalar
+		      size=lenOrtsTypes[type];
+		    }
+		    //printf("size=%d\n",size);
+		    //printf("Result #%d :\n[",i);
+		    //for (int k=0; k<size; k++) printf(" %.2X", data[k]);
+		    //printf("]\n");
+                      
+		} 
+	    }
 	    
-	    actionCmd.encode(data);
-	    actionCmd.checkSign();
-	
-	    printf("\tПринят ответ адресата: [");
-	    for (int i=0; i<length; i++) {
-		printf("%.2X ",data[i]);
-	    }    
-	    printf("]\n\n",length);
-	
-    	    delete data;
+	    
+
 	}// if isCmdExists
 
 	return result;
@@ -366,18 +341,21 @@ errType menuString::printAnswer (char** strings)
 	WORD stringsOffset=0;
 	WORD elQnty=0;
 	
-	MyType valType;
+	OrtsType valType;
 	
 	printf("\tРасшифровка:\n");
 	//printf("\tresultsQnty: %d\n",resultsQnty);
 	for (int i=0; i<resultsQnty; i++){
+	    //printf("i=%d\n",i);
 	    valType=resultStrings[i]->getParamType();
 	    name=resultStrings[i]->getParamName();
 	    
 	    if (valType & 0xF0)
 	    {
-		//vectortype	
+		//printf("vectortype\n");
+		
 		elQnty=*(WORD*)strings[stringsOffset];
+		//printf("elQnty=%d\n", elQnty);
 		stringsOffset+=1;
 		if (valType==type_CHARVECTOR) printf("\t%s: ", name);
 		for (int k=0; k<elQnty; k++)
@@ -401,6 +379,67 @@ errType menuString::printAnswer (char** strings)
 }
 
 
+errType menuString::paramToStringDecode(const void* ptr, OrtsType paramType, char** string)
+{
+	// length=0 for scalars and WORD for vector types
+	
+	int len=0;
+	errType result=err_not_init;
+	
+	switch (paramType)
+	{
+	    case type_ERRTYPE: //errType
+	        *string=new char[strlen(strErrTypes[*(BYTE*)ptr])+6];
+			sprintf(*string, "%s (0x%.2X)", strErrTypes[*(BYTE*)ptr], *(BYTE*)ptr);
+			result=err_result_ok;
+			break;
+	    case type_BYTE:
+			*string=new char[11];
+			sprintf(*string, "%d (0x%.2X)", *(BYTE*)ptr, *(BYTE*)ptr);
+			result=err_result_ok;
+			break;
+	    case type_WORD:
+			*string=new char[15];
+			sprintf(*string, "%.5d (0x%.4X)", *(WORD*)ptr, *(WORD*)ptr);
+			result=err_result_ok;
+			break;
+	    case type_DWORD:
+			*string=new char[26];
+			sprintf(*string, "%u (0x%.8X)", *(DWORD*)ptr, *(DWORD*)ptr);
+			result=err_result_ok;
+			break;
+	    case type_QWORD:
+			*string=new char[44];
+			sprintf(*string, "%llu ", *(QWORD*)ptr, *(QWORD*)ptr);
+			result=err_result_ok;
+			break;
+	    case type_FLOAT:
+			*string=new char[26];
+			sprintf(*string, "%f ", *(float*)ptr);
+			result=err_result_ok;
+			break;
+			
+	    case type_DOUBLE:
+			*string=new char[44];
+			sprintf(*string, "%lf ", *(double*)ptr);
+			result=err_result_ok;
+			break;
+			
+	    case type_CHAR:
+			*string=new char[10];
+			sprintf(*string, "%c", *(char*)ptr);
+			result=err_result_ok;
+			break;
+			
+	    default:
+			printf("unrecognized type\n");
+			break;
+	}
+	return result;
+}
+
+
+
 errType menuString::mainLoop()
 {
     errType result=err_result_ok;
@@ -411,13 +450,15 @@ errType menuString::mainLoop()
     if (result==err_result_ok) result=execFunc();
     else printf("\tФункция не исполнена, причина: %s\n\n",strErrTypes[result]);
     
-    if (result==err_result_ok) result=readAnswer(/*resultsQnty*/);
+    if (result==err_result_ok) result=readAnswer(strings);
     else printf("\tРезультат не получен, причина: %s\n\n",strErrTypes[result]);
     
-    if (result==err_result_ok) result=convertAnswerToStrings(strings);
+    //if (result==err_result_ok) result=convertAnswerToStrings(strings);
     
     if (result==err_result_ok) result=printAnswer(strings);
     else printf("\tРезультат напечатан не будет, причина: %s\n\n",strErrTypes[result]);
     
     return result;
 }
+
+
