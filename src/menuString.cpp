@@ -4,7 +4,6 @@
 #include <deque>
 #include <string.h>
 
-#include "../../ortsTypes/ortsTypes.h"
 #include "../../rcsLib/rcsLib.h"
 
 #include "menuParam.h"
