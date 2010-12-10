@@ -41,7 +41,6 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[33]=new menuString(33,"Смена оперативного режима службы",1, 1, sndAct, rcvAct);
     menu[34]=new menuString(34,"Запрос вектора состояния службы",0, 2, sndAct, rcvAct);
     
-    
     menu[2]->paramsConstruct(0, "Идентификатор процесса", type_WORD, &zeroValue);
 
     menu[4]->paramsConstruct(0, "Часть имени процесса", type_CHARVECTOR, &zeroValue);
