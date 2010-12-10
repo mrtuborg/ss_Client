@@ -1,1 +1,0 @@
-myTypes.o myTypes.o: myTypes.cpp

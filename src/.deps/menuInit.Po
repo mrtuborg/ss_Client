@@ -64,8 +64,8 @@ menuInit.o menuInit.o: menuInit.cpp /usr/include/netinet/in.h \
   /usr/include/c++/4.2.1/bits/stl_construct.h \
   /usr/include/c++/4.2.1/bits/stl_uninitialized.h \
   /usr/include/c++/4.2.1/bits/stl_deque.h \
-  /usr/include/c++/4.2.1/bits/deque.tcc ../../ortsTypes/ortsTypes.h \
-  ../../rcsLib/rcsLib.h ../../rcsLib/../rcsLib/ortsTypes/ortsTypes.h \
+  /usr/include/c++/4.2.1/bits/deque.tcc ../../rcsLib/rcsLib.h \
+  ../../rcsLib/../rcsLib/ortsTypes/ortsTypes.h \
   ../../rcsLib/../rcsLib/rcsCmd/rcsCmd.h \
   ../../rcsLib/../rcsLib/udp_port/udp_port.h /usr/include/netinet/ip.h \
   /usr/include/netinet/in_systm.h /usr/include/netinet/udp.h \
@@ -276,8 +276,6 @@ menuInit.o menuInit.o: menuInit.cpp /usr/include/netinet/in.h \
 /usr/include/c++/4.2.1/bits/stl_deque.h:
 
 /usr/include/c++/4.2.1/bits/deque.tcc:
-
-../../ortsTypes/ortsTypes.h:
 
 ../../rcsLib/rcsLib.h:
 

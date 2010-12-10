@@ -2,7 +2,7 @@ menuParam.o menuParam.o: menuParam.cpp /usr/include/stdio.h \
   /usr/include/_types.h /usr/include/sys/_types.h \
   /usr/include/sys/cdefs.h /usr/include/machine/_types.h \
   /usr/include/i386/_types.h /usr/include/string.h \
-  ../../ortsTypes/ortsTypes.h \
+  ../../rcsLib/ortsTypes/ortsTypes.h \
   /usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stddef.h \
   /usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stdint.h menuParam.h
 
@@ -20,7 +20,7 @@ menuParam.o menuParam.o: menuParam.cpp /usr/include/stdio.h \
 
 /usr/include/string.h:
 
-../../ortsTypes/ortsTypes.h:
+../../rcsLib/ortsTypes/ortsTypes.h:
 
 /usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stddef.h:
 
