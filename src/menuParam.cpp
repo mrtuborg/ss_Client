@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../../ortsTypes/ortsTypes.h"
+#include "../../rcsLib/ortsTypes/ortsTypes.h"
 #include "menuParam.h"
 
 menuParam::menuParam()
