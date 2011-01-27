@@ -121,10 +121,21 @@ errType menuParam::printString()
 	
 	case type_CHARVECTOR:
 	     printf("[ %s: \"", paramName);
-	     for (int i=0; i<*(WORD*)value; i++) printf("%c", value[i+2]);
+	     for (int i=2; i<*(WORD*)value; i++) printf("%c", value[i]);
 	     printf("\"]");
 	break;
 	
+	case type_BYTEVECTOR:
+		     printf("[ %s: \"", paramName);
+		     for (int i=2; i<*(WORD*)value; i++) printf("%.2X ", value[i]);
+		     printf("\"]");
+	break;
+
+	case type_WORDVECTOR:
+		     printf("[ %s: \"", paramName);
+		     for (int i=2; i<*(WORD*)value; i+=2) printf("%.4X ", value[i]);
+		     printf("\"]");
+	break;
 
     }
     return result;

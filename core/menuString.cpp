@@ -156,7 +156,7 @@ errType menuString::execMenu()
     BYTE* value=0;
 
     printf("\tx. Запуск на исполнение \"%s\"\n",itemName );
-    printf("\ta. Отказ запуска на исполнение\n",itemName );
+    printf("\ta. Отказ запуска на исполнение \"%s\"\n",itemName );
     
     for (BYTE i=0; i<paramsQnty; i++) {
 	if (paramStrings[i]) 
@@ -235,9 +235,9 @@ errType menuString::execFunc()
 {
 	errType result=err_not_init;
 	BYTE* param;
-	BYTE paramsContainer[1024];
+
 	rcsCmd actionCmd(0,itemId); // i don't know number of service
-	DWORD offset=0;
+
 	int size=0;
 	OrtsType type;
     
@@ -293,10 +293,10 @@ errType menuString::readAnswer(char** strings)
 		actionCmd->checkSign();
 		length=actionCmd->getCmdLength();
 		printf("\tПринят ответ адресата: [");
-		for (int i=0; i<length; i++) {
+		for (DWORD i=0; i<length; i++) {
 		   printf("%.2X ",data[i]);
 		}    
-		printf("]\n\n",length);
+		printf("], Длина ответа: %d\n\n",length);
 		delete data;
 	    
 		
@@ -332,13 +332,10 @@ errType menuString::readAnswer(char** strings)
 errType menuString::printAnswer (char** strings)
 {
 	errType result=err_not_init;
-	BYTE maxStrLen=0;
-	BYTE minStrLen=0;
-        
+
 	char *name;
 	char *value;
-	
-	BYTE offset=0;
+
 	
 	WORD stringsOffset=0;
 	WORD elQnty=0;
@@ -385,7 +382,7 @@ errType menuString::paramToStringDecode(const void* ptr, OrtsType paramType, cha
 {
 	// length=0 for scalars and WORD for vector types
 	
-	int len=0;
+
 	errType result=err_not_init;
 	
 	switch (paramType)
@@ -412,7 +409,7 @@ errType menuString::paramToStringDecode(const void* ptr, OrtsType paramType, cha
 			break;
 	    case type_QWORD:
 			*string=new char[44];
-			sprintf(*string, "%llu ", *(QWORD*)ptr, *(QWORD*)ptr);
+			sprintf(*string, "%llu ", *(QWORD*)ptr);
 			result=err_result_ok;
 			break;
 	    case type_FLOAT:

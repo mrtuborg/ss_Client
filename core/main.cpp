@@ -129,7 +129,7 @@ errType fileRead (char* fname, BYTE** buffer, size_t *sz){
 
 void dbg_hex_print(BYTE* buffer, size_t len){
     printf("[");
-    for (int i=0; i<len; i++) printf("%.2X ",buffer[i]);
+    for (size_t i=0; i<len; i++) printf("%.2X ",buffer[i]);
     printf("]\n");
 }
 
@@ -160,13 +160,12 @@ int main(char argc, char *argv[]) {
 	errType ret=process_cmdLine(argc, argv);
 	udp_port *uPort;
 	udp_port *rcvPort;
-	
-	in_addr remote_ip;
-	BYTE *buffer, *pattern, *reaction;
-	BYTE *listen_buffer;
-	size_t sz[1]={0}, pattern_length=0, reaction_length=0, listen_sz=0;
+
+	BYTE *buffer;
+
+	size_t sz[1]={0};
     //    printf("ret=%d\n", ret);
-	if(ret!=err_result_ok) exit(1);
+	if (ret!=err_result_ok) exit(1);
 //	printf("pt2\n");
 	uPort=new udp_port(wUdp);
         rcvPort=new udp_port(wUdp+1);
@@ -187,7 +186,7 @@ int main(char argc, char *argv[]) {
     	    menu=new menuString*[menuLen];
     	    
     	    udpAction *SendAction=new udpAction(0,wUdp,ip);
-    	    udpAction *RecvEvent=new udpAction(1,wUdp+1,"127.0.0.1");
+    	    udpAction *RecvEvent=new udpAction(1,wUdp+1,(char*)"127.0.0.1");
     	    
     	    menuInit(menu, SendAction, RecvEvent);
     	    printTittle();
