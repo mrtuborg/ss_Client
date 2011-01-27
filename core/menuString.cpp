@@ -297,7 +297,7 @@ errType menuString::readAnswer(char** strings)
 		   printf("%.2X ",data[i]);
 		}    
 		printf("], Длина ответа: %d\n\n",length);
-		delete data;
+		delete []data;
 	    
 		
 		for (int i=0; i< resultsQnty; i++)

@@ -215,7 +215,7 @@ int main(char argc, char *argv[]) {
     		}
     		
     	    } while(!AppTerminated);
-    	    delete buffer;
+    	    delete []buffer;
         
         
 	uPort->close_port();
