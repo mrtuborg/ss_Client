@@ -24,8 +24,10 @@ service_include_dir	:= services/$(id)
 service_source_dir	:= services/$(id)
 service_source_subdirs	:= .   # add some dirs in next inclusion:
 
-include $(addprefix $(service_source_dir)/,Makefile.inc)
-
+#
+# No need by ss_Client.... untill...
+# include $(addprefix $(service_source_dir)/,Makefile.inc)
+#
 include $(addprefix $(paths_to_libraries)/,rcsLib/Makefile.inc)
 lib_dirs:=$(addprefix $(paths_to_libraries)/rcsLib/, $(lib_subdirs))
 
