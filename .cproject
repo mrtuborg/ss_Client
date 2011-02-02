@@ -2685,6 +2685,7 @@
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.toolchain.gnu.macosx.base.139763747.1269817174" moduleId="org.eclipse.cdt.core.settings" name="Scheduling client">
 				<macros>
 					<stringMacro name="id" type="VALUE_TEXT" value="1"/>
+					<stringMacro name="connect_port" type="VALUE_TEXT" value="10004"/>
 				</macros>
 				<externalSettings/>
 				<extensions>
@@ -2701,7 +2702,7 @@
 					<folderInfo id="cdt.managedbuild.toolchain.gnu.macosx.base.139763747.1269817174." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.macosx.base.1948659278" name="cdt.managedbuild.toolchain.gnu.macosx.base" superClass="cdt.managedbuild.toolchain.gnu.macosx.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.macosx.base.1809031059" name="Debug Platform" osList="macosx" superClass="cdt.managedbuild.target.gnu.platform.macosx.base"/>
-							<builder id="cdt.managedbuild.target.gnu.builder.macosx.base.1052338491" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.macosx.base"/>
+							<builder arguments="id=${id}" command="make" id="cdt.managedbuild.target.gnu.builder.macosx.base.1052338491" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.macosx.c.linker.macosx.base.1162785099" name="MacOS X C Linker" superClass="cdt.managedbuild.tool.macosx.c.linker.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base.1774553493" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base">
 								<inputType id="cdt.managedbuild.tool.macosx.cpp.linker.input.1380137400" superClass="cdt.managedbuild.tool.macosx.cpp.linker.input">

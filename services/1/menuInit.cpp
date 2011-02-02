@@ -24,7 +24,7 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     
     for (int i=0; i<menuLen; i++) menu[i]=0;
     
-    menu[1]=new menuString(1,"Задать основное технологическое расписание", 2, 1, sndAct, rcvAct);
+    menu[1]=new menuString(1,"Добавить задание", 7, 2, sndAct, rcvAct);
     menu[2]=new menuString(2,"Задать аварийное технологическое расписание", 1, 1, sndAct, rcvAct);
     menu[3]=new menuString(3,"Прочитать основное технологическое расписание", 1, 2, sndAct, rcvAct);
     menu[4]=new menuString(4,"Прочитать аварийное технологическое расписание", 0, 2, sndAct, rcvAct);
@@ -35,7 +35,15 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[34]=new menuString(34,"Запрос вектора состояния службы",0, 2, sndAct, rcvAct);
     
     menu[1]->paramsConstruct(0, "Идентификатор расписания", type_BYTE, &coord_type);
-    menu[1]->paramsConstruct(1, "Список задач", type_BYTE, &func_mode);
+    menu[1]->paramsConstruct(1, "Идентификатор операции", type_DWORD, &func_mode);
+    menu[1]->paramsConstruct(2, "Идентификатор следующей операции", type_DWORD, &func_mode);
+    menu[1]->paramsConstruct(3, "Время начала, сек", type_WORD, &func_mode);
+    menu[1]->paramsConstruct(4, "Время завершения, сек", type_WORD, &func_mode);
+    menu[1]->paramsConstruct(5, "Идентификатор службы", type_BYTE, &func_mode);
+    menu[1]->paramsConstruct(6, "Идентификатор функции", type_BYTE, &func_mode);
+    menu[1]->paramsConstruct(7, "Параметрическая часть", type_BYTE, &func_mode);
+
+
     menu[2]->paramsConstruct(0, "Список задач", type_BYTE, &zeroValue);
     menu[3]->paramsConstruct(0, "Время начала исполнения", type_DWORD, &zeroValue);
     menu[5]->paramsConstruct(0, "Идентификатор расписания", type_BYTE, &zeroValue);
@@ -43,6 +51,7 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[33]->paramsConstruct(0, "Новый оперативный режим", type_BYTE, &zeroValue);
     
     menu[1]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &coord_type);
+    menu[1]->resultsConstruct(1, "Расширенный результат", type_DWORD, &coord_type);
     
     menu[2]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &coord_type);
 
