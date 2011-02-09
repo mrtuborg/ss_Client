@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 #include <string.h>
 #include <extra/ortsTypes/ortsTypes.h>
 #include "menuParam.h"
@@ -27,6 +29,8 @@ errType menuParam::setParamValue(BYTE* newValue)
 {
     errType result=err_not_init;
     WORD str_len=0;
+	int len=0;
+	int m=0,n=0;
 
     switch((OrtsType)type)
     {
@@ -47,6 +51,36 @@ errType menuParam::setParamValue(BYTE* newValue)
 	    *((WORD*)value)=strlen((char*)newValue); // WORD value[0] - vector size
 	    strcpy((char*)(value+2), (char*)newValue);
 	    break;
+	case type_BYTEVECTOR:
+		//printf("menuParam: len=%d\n", *(WORD*)newValue);
+		//memcpy(value, newValue, *(WORD*)newValue);
+		len=strlen((char*)newValue)+1;
+		char container[len][len];
+		//value=new BYTE[len+2];
+
+		for (int i=0; i<len; i++){
+		//printf("strVal[%d]=%c\n",i,strVal[i]);
+			if (isdigit(newValue[i])){
+				    	container[m][n++]=newValue[i];
+				    	container[m][n]=0;
+			} else {
+				    	if (n>0) {
+				    		n=0;
+				    		m++;
+				    	}
+			}
+		}
+		//m++;
+		//for (int i=0; i<m; i++) printf("container[%d]=%s\n", i, container[i]);
+		//value=new BYTE[m+2];
+		for (int i=0; i<m; i++){
+			value[i+2]=(BYTE)atoi(container[i]);
+			//printf("vector[%d]=%d\n",i, value[i+2]);
+		}
+		*((WORD*)value)=m;
+		//printf("m=%d\n",*((WORD*)value));
+		//value=vector;
+		break;
 	default: // BYTE(1), WORD(2)
 	    memcpy(value,newValue,lenOrtsTypes[type]);
 	    break;
@@ -82,6 +116,9 @@ errType menuParam::printString()
 {
     errType result=err_not_init;
     if (!paramName) return err_result_error;
+
+    int vector_length;
+
     switch((OrtsType)type)
     {
 	
@@ -126,9 +163,11 @@ errType menuParam::printString()
 	break;
 	
 	case type_BYTEVECTOR:
-		     printf("[ %s: \"", paramName);
-		     for (int i=2; i<*(WORD*)value; i++) printf("%.2X ", value[i]);
-		     printf("\"]");
+		 vector_length=*(WORD*)value;
+		 //printf("\nvector_length=%d\n", vector_length);
+		 printf("[ %s: \"", paramName);
+		 for (int i=0; i<vector_length; i++) printf("%.2X ", value[i+2]);
+		 printf("\"]");
 	break;
 
 	case type_WORDVECTOR:

@@ -153,7 +153,7 @@ errType menuString::execMenu()
     float fltVal=0;
     double dblVal=0;
     
-    BYTE* value=0;
+    BYTE *value=0;
 
     printf("\tx. Запуск на исполнение \"%s\"\n",itemName );
     printf("\ta. Отказ запуска на исполнение \"%s\"\n",itemName );
@@ -181,6 +181,7 @@ errType menuString::execMenu()
 	    if ((choosen!=0) && (choosen<=paramsQnty) && (paramStrings[choosen-1]))
 	    {
 		printf("\tНовое значение: ");
+
 		switch (paramStrings[choosen-1]->getParamType()){
 		    case type_CHAR: scanf("%c", (char*)strVal);
 			    value=(BYTE*)strVal;
@@ -207,10 +208,14 @@ errType menuString::execMenu()
 			    scanf("%s", strVal);
 			    value=(BYTE*)strVal;
 			    break;
-			     
+		    case type_BYTEVECTOR:
+		    		scanf("%s", strVal);
+		    		value=(BYTE*)strVal;
+
+		    		break;
 		    default:
-			printf("unrecognized type\n");
-			break;
+		    		printf("unrecognized type\n");
+		    		break;
 		} // switch
 		    
 		result=paramStrings[choosen-1]->setParamValue(value);

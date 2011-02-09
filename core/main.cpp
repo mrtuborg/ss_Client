@@ -164,34 +164,34 @@ int main(char argc, char *argv[]) {
 	BYTE *buffer;
 
 	size_t sz[1]={0};
-    //    printf("ret=%d\n", ret);
+
 	if (ret!=err_result_ok) exit(1);
-//	printf("pt2\n");
+
 	uPort=new udp_port(wUdp);
-        rcvPort=new udp_port(wUdp+1);
+    rcvPort=new udp_port(wUdp+1);
         
-        if (uPort->open_port(listen_mode)!=err_result_ok) {
+    if (uPort->open_port(listen_mode)!=err_result_ok) {
 	    printf("Коммуникационный порт не может быть открыт. Выполнение программы остановлено!\n");
 	    delete uPort;
 	    return -1;
-        }
+    }
 	
 	
-    	    buffer=new BYTE[255];
-    	    *sz=1024;
-    	    int choosen=0;
-    	    char choose[15];
+    	buffer=new BYTE[255];
+    	*sz=1024;
+    	int choosen=0;
+    	char choose[15];
     	    
-    	    menuString **menu;
-    	    menu=new menuString*[menuLen];
+    	menuString **menu;
+    	menu=new menuString*[menuLen];
     	    
-    	    udpAction *SendAction=new udpAction(0,wUdp,ip);
-    	    udpAction *RecvEvent=new udpAction(1,wUdp+1,(char*)"127.0.0.1");
+    	udpAction *SendAction=new udpAction(0,wUdp,ip);
+    	udpAction *RecvEvent=new udpAction(1,wUdp+1,(char*)"127.0.0.1");
     	    
-    	    menuInit(menu, SendAction, RecvEvent);
-    	    printTittle();
-    	    printMenu(menu);
-    	    do {
+    	menuInit(menu, SendAction, RecvEvent);
+    	printTittle();
+    	printMenu(menu);
+    	do {
     		printf("выбор > ");
     		scanf("%s",choose);
     		//printf("\n--%s\n",choose);
@@ -205,12 +205,10 @@ int main(char argc, char *argv[]) {
     		    //printf("\n%.2X\n",choosen);
     		    if ((choosen>0) && (choosen<=menuLen)&&(menu[choosen])) {
     			    result=menu[choosen]->mainLoop();
-    			//}
-    			// fpurge(stdin);
-    			choosen=0;
+    			    choosen=0;
     		    } else {
-    			printf ("\tКомманда не поддерживается, либо введена неверная комманда\n");
-    			printf ("\tВведите 'c' для повторной печати меню комманд\n");
+    		    		printf ("\tКомманда не поддерживается, либо введена неверная комманда\n");
+    		    		printf ("\tВведите 'c' для повторной печати меню комманд\n");
     		    }
     		}
     		
