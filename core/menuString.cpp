@@ -292,39 +292,39 @@ errType menuString::readAnswer(char** strings)
 	    
 	    if (RecvEvent->readDataAsCmd(&actionCmd)==err_result_ok)
 	    {
-		data=new BYTE[1024];
-		//actionCmd->dbgPrint();
-		actionCmd->decode(data);
-		actionCmd->checkSign();
-		length=actionCmd->getCmdLength();
-		printf("\tПринят ответ адресата: [");
-		for (DWORD i=0; i<length; i++) {
-		   printf("%.2X ",data[i]);
-		}    
-		printf("], Длина ответа: %d\n\n",length);
-		delete []data;
+	    		data=new BYTE[1024];
+	    		//actionCmd->dbgPrint();
+	    		actionCmd->decode(data);
+	    		actionCmd->checkSign();
+	    		length=actionCmd->getCmdLength();
+	    		printf("\tПринят ответ адресата: [");
+	    		for (DWORD i=0; i<length; i++) {
+	    			printf("%.2X ",data[i]);
+	    		}
+	    		printf("], Длина ответа: %d\n\n",length);
+	    		delete []data;
 	    
 		
-		for (int i=0; i< resultsQnty; i++)
-		{
-		    type=resultStrings[i]->getParamType();
-		    data=(BYTE*)actionCmd->popParam(type);
+	    		for (int i=0; i< resultsQnty; i++)
+	    		{
+	    			type=resultStrings[i]->getParamType();
+	    			data=(BYTE*)actionCmd->popParam(type);
 		    
-		    paramToStringDecode(data, type, &strings[i]);
+	    			paramToStringDecode(data, type, &strings[i]);
 		    
-		    if ((type&0xF0)!=0) // is vector
-		    {
-		      size=*(WORD*)data;
-		      data+=2;
-		    } else { //is scalar
-		      size=lenOrtsTypes[type];
-		    }
+	    			if ((type&0xF0)!=0) // is vector
+	    			{
+	    				size=*(WORD*)data;
+	    				data+=2;
+	    			} else { //is scalar
+	    				size=lenOrtsTypes[type];
+	    			}
 		    //printf("size=%d\n",size);
 		    //printf("Result #%d :\n[",i);
 		    //for (int k=0; k<size; k++) printf(" %.2X", data[k]);
 		    //printf("]\n");
                       
-		} 
+	    		}
 	    }
 	    
 	    
@@ -389,7 +389,9 @@ errType menuString::paramToStringDecode(const void* ptr, OrtsType paramType, cha
 	
 
 	errType result=err_not_init;
-	
+
+	if (ptr==0) return result;
+
 	switch (paramType)
 	{
 	    case type_ERRTYPE: //errType
@@ -408,8 +410,10 @@ errType menuString::paramToStringDecode(const void* ptr, OrtsType paramType, cha
 			result=err_result_ok;
 			break;
 	    case type_DWORD:
+
 			*string=new char[26];
 			sprintf(*string, "%u (0x%.8X)", *(DWORD*)ptr, *(DWORD*)ptr);
+
 			result=err_result_ok;
 			break;
 	    case type_QWORD:
@@ -439,6 +443,7 @@ errType menuString::paramToStringDecode(const void* ptr, OrtsType paramType, cha
 			printf("unrecognized type\n");
 			break;
 	}
+
 	return result;
 }
 

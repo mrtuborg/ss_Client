@@ -37,8 +37,8 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[1]->paramsConstruct(0, "Идентификатор расписания", type_BYTE, &coord_type);
     menu[1]->paramsConstruct(1, "Идентификатор операции", type_DWORD, &func_mode);
     menu[1]->paramsConstruct(2, "Идентификатор следующей операции", type_DWORD, &func_mode);
-    menu[1]->paramsConstruct(3, "Время начала, сек", type_WORD, &func_mode);
-    menu[1]->paramsConstruct(4, "Время завершения, сек", type_WORD, &func_mode);
+    menu[1]->paramsConstruct(3, "Время начала, сек", type_DWORD, &func_mode);
+    menu[1]->paramsConstruct(4, "Время завершения, сек", type_DWORD, &func_mode);
     menu[1]->paramsConstruct(5, "Идентификатор службы", type_BYTE, &func_mode);
     menu[1]->paramsConstruct(6, "Идентификатор функции", type_BYTE, &func_mode);
     menu[1]->paramsConstruct(7, "Параметрическая часть", type_BYTEVECTOR, &func_mode);
