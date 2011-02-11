@@ -1,15 +1,16 @@
 #include "../../rcsLib/ortsTypes/ortsTypes.h"
 
+/// Debug info detailed level.
 int verbose_level=0;
-bool listen_mode=false;
+
+
+/// Global programm terminating signal.
+/// Flag variable to signal to all processes about program terminating.
 bool AppTerminated=false;
-bool awaitingPattern_mode=false;
-bool pattern_found=false;
 
 char ip[255]={0};
-char dataFile[255]={0};
 char if_name[255]={0};
-char patternFile[255]={0};
-char reactionFile[255]={0};
 
+/// Udp port number. Uses as argument from command line which
+/// selects udp socket to communicate with a server side.
 WORD wUdp=0;
