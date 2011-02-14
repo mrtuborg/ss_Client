@@ -3,7 +3,7 @@
 #include <string.h>
 //#include "auto_config.h"
 
-#include "./arg_parser/carg_parser.h"
+#include <system/arg_parser/carg_parser.h>
 
 char PROGVERSION[255] = "0.1";
 char Program_name[255]    = "Клиент консоли серверов СУК НОЛС ТИ";
