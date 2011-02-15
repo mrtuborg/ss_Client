@@ -154,7 +154,8 @@ errType menuParam::printString()
 	
 	case type_CHARVECTOR:
 	     printf("[ %s: \"", paramName);
-	     for (int i=2; i<*(WORD*)value; i++) printf("%c", value[i]);
+	     vector_length=*(WORD*)value;
+	     for (int i=0; i<vector_length; i++) printf("%c", value[i+2]);
 	     printf("\"]");
 	break;
 	
