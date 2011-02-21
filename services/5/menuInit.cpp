@@ -33,6 +33,7 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[7]=new menuString(7,"Режим ЗВВ наведения", 0, 1, sndAct, rcvAct);
     menu[8]=new menuString(8,"Режим Поиск, старт", 3, 1, sndAct, rcvAct);
     menu[9]=new menuString(9,"Режим Поиск, стоп", 0, 1, sndAct, rcvAct);
+    menu[10]=new menuString(10,"Режим ОТКЛЮЧЕНО", 0, 1, sndAct, rcvAct);
     
     
     menu[32]=new menuString(32,"Аварийное завершение подсистемы", 0, 1, sndAct, rcvAct);
@@ -41,7 +42,7 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     
     menu[4]->paramsConstruct(0, "Поправка по азимуту", type_DOUBLE, ((BYTE*)Az_adj));
     menu[4]->paramsConstruct(1, "Поправка по углу места", type_DOUBLE, ((BYTE*)Elev_adj));
-    menu[4]->paramsConstruct(2, "Поправка времени", type_QWORD, ((BYTE*)Time_adj));
+    menu[4]->paramsConstruct(2, "Поправка времени", type_DWORD, ((BYTE*)Time_adj));
     
     menu[5]->paramsConstruct(0, "Имя файла исходных данных", type_CHARVECTOR, (BYTE*)mode_params);
     menu[8]->paramsConstruct(0, "Число витков", type_BYTE, &zeroValue);
@@ -83,6 +84,7 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[7]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
     menu[8]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
     menu[9]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
+    menu[10]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
 
     menu[32]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
     menu[33]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);

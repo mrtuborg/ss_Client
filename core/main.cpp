@@ -9,7 +9,7 @@
 #include <peripheral/udp_port/udp_port.h>
 #include <rcsLib/udpAction/udpAction.h>
 
-#include "arg_parser/carg_parser.h"
+#include <system/arg_parser/carg_parser.h>
 #include "console_out.h"
 #include "global.h"
 #include "menuParam.h"
@@ -186,7 +186,7 @@ int main(char argc, char *argv[]) {
     	menu=new menuString*[menuLen];
     	    
     	udpAction *SendAction=new udpAction(0,wUdp,ip);
-    	udpAction *RecvEvent=new udpAction(1,wUdp+1,(char*)"127.0.0.1");
+    	udpAction *RecvEvent=new udpAction(1,wUdp+1,(char*)"127.0.0.1", 5,0);
     	    
     	menuInit(menu, SendAction, RecvEvent);
     	printTittle();
