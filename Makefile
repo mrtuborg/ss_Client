@@ -31,10 +31,6 @@ service_source_subdirs	:= .   # add some dirs in next inclusion:
 include $(addprefix $(paths_to_libraries)/,rcsLib/Makefile.inc)
 lib_dirs:=$(addprefix $(paths_to_libraries)/rcsLib/, $(lib_subdirs))
 
-include $(addprefix $(paths_to_libraries)/,comm/Makefile.inc)
-lib_dirs+=$(addprefix $(paths_to_libraries)/comm/, $(lib_subdirs))
-
-
 include $(addprefix $(paths_to_libraries)/,extra/Makefile.inc)
 lib_dirs+=$(addprefix $(paths_to_libraries)/extra/, $(lib_subdirs))
 
@@ -47,6 +43,8 @@ lib_dirs+=$(addprefix $(paths_to_libraries)/storage/, $(lib_subdirs))
 include $(addprefix $(paths_to_libraries)/,system/Makefile.inc)
 lib_dirs+=$(addprefix $(paths_to_libraries)/system/, $(lib_subdirs))
 
+include $(addprefix $(paths_to_libraries)/,peripheral/Makefile.inc)
+lib_dirs+=$(addprefix $(paths_to_libraries)/peripheral/, $(lib_subdirs))
 
 compile_flags		:= -Wall -Wno-char-subscripts -MD -pipe
 link_flags		:= -pipe

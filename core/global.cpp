@@ -14,3 +14,4 @@ char if_name[255]={0};
 /// Udp port number. Uses as argument from command line which
 /// selects udp socket to communicate with a server side.
 WORD wUdp=0;
+bool listen_mode=false;
