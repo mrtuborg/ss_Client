@@ -23,9 +23,11 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
                                 
     
     for (int i=0; i<menuLen; i++) menu[i]=0;
+
     
     menu[1]=new menuString(1,"Добавить задание", 10, 2, sndAct, rcvAct);
-    menu[2]=new menuString(2,"Задать аварийное технологическое расписание", 1, 1, sndAct, rcvAct);
+    menu[2]=new menuString(2,"Запустить расписание на выполнение", 1, 1, sndAct, rcvAct);
+//    menu[2]=new menuString(2,"Задать аварийное технологическое расписание", 1, 1, sndAct, rcvAct);
     menu[3]=new menuString(3,"Прочитать основное технологическое расписание", 1, 2, sndAct, rcvAct);
     menu[4]=new menuString(4,"Прочитать аварийное технологическое расписание", 0, 2, sndAct, rcvAct);
     menu[5]=new menuString(5,"Прочитать курсор исполнения", 1, 2, sndAct, rcvAct);
@@ -46,7 +48,9 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[1]->paramsConstruct(9, "Параметрическая часть", type_BYTEVECTOR, &func_mode);
 
 
-    menu[2]->paramsConstruct(0, "Список задач", type_BYTE, &zeroValue);
+//    menu[2]->paramsConstruct(0, "Список задач", type_BYTE, &zeroValue);
+    menu[2]->paramsConstruct(0, "Идентификатор расписания", type_BYTE, &coord_type);
+
     menu[3]->paramsConstruct(0, "Время начала исполнения", type_DWORD, &zeroValue);
     menu[5]->paramsConstruct(0, "Идентификатор расписания", type_BYTE, &zeroValue);
 
