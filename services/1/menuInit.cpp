@@ -26,11 +26,13 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
 
     
     menu[1]=new menuString(1,"Добавить задание", 10, 2, sndAct, rcvAct);
-    menu[2]=new menuString(2,"Запустить расписание на выполнение", 1, 1, sndAct, rcvAct);
-//    menu[2]=new menuString(2,"Задать аварийное технологическое расписание", 1, 1, sndAct, rcvAct);
-    menu[3]=new menuString(3,"Прочитать основное технологическое расписание", 1, 2, sndAct, rcvAct);
-    menu[4]=new menuString(4,"Прочитать аварийное технологическое расписание", 0, 2, sndAct, rcvAct);
-    menu[5]=new menuString(5,"Прочитать курсор исполнения", 1, 2, sndAct, rcvAct);
+    menu[2]=new menuString(2,"Запустить пакетное задание на исполнение", 1, 1, sndAct, rcvAct);
+    menu[3]=new menuString(3,"Остановить выполнение пакетного задания", 1, 1, sndAct, rcvAct);
+    menu[4]=new menuString(4,"Запрос статуса операции", 2, 3, sndAct, rcvAct);
+    menu[5]=new menuString(5,"Запрос идентификатора выполняющегося задания", 0, 1, sndAct, rcvAct);
+    menu[6]=new menuString(6,"Запрос содержимого операции", 2, 8, sndAct, rcvAct);
+    menu[7]=new menuString(7,"Запрос списка идентификаторов операций", 1, 2, sndAct, rcvAct);
+    menu[8]=new menuString(8,"Запустить задание на исполнение", 3, 1, sndAct, rcvAct);
     
     menu[32]=new menuString(32,"Аварийное завершение подсистемы", 0, 1, sndAct, rcvAct);
     menu[33]=new menuString(33,"Смена оперативного режима службы",1, 1, sndAct, rcvAct);
@@ -47,12 +49,23 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[1]->paramsConstruct(8, "Идентификатор функции", type_BYTE, &func_mode);
     menu[1]->paramsConstruct(9, "Параметрическая часть", type_BYTEVECTOR, &func_mode);
 
+    menu[2]->paramsConstruct(0, "Идентификатор пакетного задания", type_BYTE, &coord_type);
 
-//    menu[2]->paramsConstruct(0, "Список задач", type_BYTE, &zeroValue);
-    menu[2]->paramsConstruct(0, "Идентификатор расписания", type_BYTE, &coord_type);
+    menu[3]->paramsConstruct(0, "Идентификатор пакетного задания", type_BYTE, &coord_type);
 
-    menu[3]->paramsConstruct(0, "Время начала исполнения", type_DWORD, &zeroValue);
-    menu[5]->paramsConstruct(0, "Идентификатор расписания", type_BYTE, &zeroValue);
+    menu[4]->paramsConstruct(0, "Идентификатор пакетного задания", type_BYTE, &coord_type);
+    menu[4]->paramsConstruct(1, "Идентификатор операции", type_DWORD, &coord_type);
+
+    menu[5]->paramsConstruct(0, "Идентификатор пакетного задания", type_BYTE, &coord_type);
+
+    menu[6]->paramsConstruct(0, "Идентификатор пакетного задания", type_BYTE, &coord_type);
+    menu[6]->paramsConstruct(1, "Идентификатор операции", type_DWORD, &coord_type);
+
+    menu[7]->paramsConstruct(0, "Идентификатор пакетного задания", type_BYTE, &coord_type);
+
+    menu[8]->paramsConstruct(0, "Идентификатор пакетного задания", type_BYTE, &coord_type);
+    menu[8]->paramsConstruct(1, "Идентификатор операции", type_DWORD, &coord_type);
+    menu[8]->paramsConstruct(2, "Отложить запуск, сек", type_BYTE, &coord_type);
 
     menu[33]->paramsConstruct(0, "Новый оперативный режим", type_BYTE, &zeroValue);
     
@@ -62,14 +75,29 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[2]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &coord_type);
 
     menu[3]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
-    menu[3]->resultsConstruct(1, "Список задач", type_DWORD, &zeroValue);
     
     menu[4]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
-    menu[4]->resultsConstruct(1, "Список задач", type_DWORD, &zeroValue);
+    menu[4]->resultsConstruct(1, "Статус операции", type_BYTE, &zeroValue);
+    menu[4]->resultsConstruct(2, "Ответ исполнителя", type_BYTEVECTOR, &zeroValue);
     
     menu[5]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
-    menu[5]->resultsConstruct(0, "Количество завершённых задач", type_BYTE, &resValue);
+    menu[5]->resultsConstruct(1, "Идентификатор операции", type_DWORD, &resValue);
     
+    menu[6]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
+    menu[6]->resultsConstruct(1, "Идентификатор следующей операции", type_DWORD, &func_mode);
+    menu[6]->resultsConstruct(2, "Время начала, сек", type_DWORD, &func_mode);
+    menu[6]->resultsConstruct(3, "Время завершения, сек", type_DWORD, &func_mode);
+    menu[6]->resultsConstruct(4, "IPv4-адресс службы исполнения", type_DWORD, &func_mode);
+    menu[6]->resultsConstruct(5, "UDP порт службы исполнения", type_WORD, &func_mode);
+    menu[6]->resultsConstruct(6, "Идентификатор службы", type_BYTE, &func_mode);
+    menu[6]->resultsConstruct(7, "Идентификатор функции", type_BYTE, &func_mode);
+    menu[6]->resultsConstruct(8, "Параметрическая часть", type_BYTEVECTOR, &func_mode);
+
+    menu[7]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
+    menu[7]->resultsConstruct(1, "Массив идентификаторов операций", type_DWORDVECTOR, &resValue);
+
+    menu[8]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
+
     menu[32]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
     menu[33]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
     menu[34]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
