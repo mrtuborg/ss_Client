@@ -16,16 +16,12 @@
 # Visit http://bash.cyberciti.biz/ for more information.
 # ----------------------------------------------------------------------
 # set Variables
-set username	[lrange $argv 0 0]
-set password	[lrange $argv 1 1]
-set ipaddr	[lrange $argv 2 2]
-set dir_root	[lrange $argv 3 3]
-set scriptname	[lrange $argv 4 4]
-set arg		[lrange $argv 5 10]
+set password	[lrange $argv 0 0]
+set file_local	[lrange $argv 1 1]
 
 set timeout -1
 # now connect to remote UNIX box (ipaddr) with given script to execute
-spawn ssh $username@$ipaddr cd $dir_root && $scriptname $arg
+spawn scp -r $file_local root@192.168.9.99:/dev/st0
 match_max 100000
 # Look for passwod prompt
 expect "*?assword:*"
@@ -33,4 +29,15 @@ expect "*?assword:*"
 send -- "$password\r"
 # send blank line (\r) to make sure we get back to gui
 send -- "\r"
+
+spawn ssh root@192.168.9.99 "mt -f /dev/st0 rewoffl"
+# Look for passwod prompt
+expect "*?assword:*"
+# Send password aka $password
+send -- "$password\r"
+# send blank line (\r) to make sure we get back to gui
+send -- "\r"
+
+
+
 expect eof
