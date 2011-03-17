@@ -359,7 +359,7 @@ errType menuString::printAnswer (char** strings)
 		//printf("vectortype\n");
 		
 		elQnty=*(WORD*)strings[stringsOffset];
-		//printf("elQnty=%d\n", elQnty);
+		printf("elQnty=%d\n", elQnty);
 		stringsOffset+=1;
 		if (valType==type_CHARVECTOR) printf("\t%s: ", name);
 		for (int k=0; k<elQnty; k++)
