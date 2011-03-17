@@ -247,7 +247,7 @@ errType menuString::execFunc()
 	OrtsType type;
     
 	printf("\tЗапуск на исполнение функции \"%s\"\n\n",itemName );
-	
+
 	actionCmd.eraseParams();
 
 	for (int i=0; i<paramsQnty; i++)
@@ -263,18 +263,14 @@ errType menuString::execFunc()
 	    }
 	    actionCmd.pushParam(type, param);
 	}
-	
-	
     
 	actionCmd.makeSign();
 	printf("\t");
 	actionCmd.dbgPrint();
-    
 	SendAction->writeDataAsCmd(&actionCmd);
-    
 	printf("\t");
 	result=SendAction->processAction();
-	
+
         return result;
 }
 
@@ -319,10 +315,10 @@ errType menuString::readAnswer(char** strings)
 	    			} else { //is scalar
 	    				size=lenOrtsTypes[type];
 	    			}
-		    //printf("size=%d\n",size);
-		    //printf("Result #%d :\n[",i);
-		    //for (int k=0; k<size; k++) printf(" %.2X", data[k]);
-		    //printf("]\n");
+//		    printf("size=%d\n",size);
+//		    printf("Result #%d :\n[",i);
+//		    for (int k=0; k<size; k++) printf(" %.2X", data[k]);
+//		    printf("]\n");
                       
 	    		}
 	    }
@@ -348,7 +344,7 @@ errType menuString::printAnswer (char** strings)
 	OrtsType valType;
 	
 	printf("\tРасшифровка:\n");
-	//printf("\tresultsQnty: %d\n",resultsQnty);
+	printf("\tresultsQnty: %d\n",resultsQnty);
 	for (int i=0; i<resultsQnty; i++){
 	    //printf("i=%d\n",i);
 	    valType=resultStrings[i]->getParamType();
@@ -356,27 +352,31 @@ errType menuString::printAnswer (char** strings)
 	    
 	    if (valType & 0xF0)
 	    {
-		//printf("vectortype\n");
+	    	//printf("vectortype\n");
 		
-		elQnty=*(WORD*)strings[stringsOffset];
-		printf("elQnty=%d\n", elQnty);
-		stringsOffset+=1;
-		if (valType==type_CHARVECTOR) printf("\t%s: ", name);
-		for (int k=0; k<elQnty; k++)
-		{
-		    value=strings[stringsOffset];
-		    stringsOffset++;
-		    
-		    if (valType==type_CHARVECTOR) printf("%s", value);
-		    else printf("\t%s #%d: %s\n",name, k+1, value);
-		}
-		
-		if (valType==type_CHARVECTOR) printf("\n");
+	    	//elQnty=*(WORD*)strings[stringsOffset];
+	    	//printf("elQnty=%d\n", elQnty);
+
+	    	stringsOffset+=1;
+	    	if (valType==type_CHARVECTOR) printf("\t%s: ", name);
+
+//	    	for (int k=0; k<elQnty; k++)
+//	    	{
+//	    		value=strings[stringsOffset];
+//	    		stringsOffset++;
+//
+//	    		if (valType==type_CHARVECTOR) printf("%s", value);
+//	    		else printf("\t%s #%d: %s\n",name, k+1, value);
+//	    	}
+	    	value=strings[i];
+	    	printf("\t%s: [%s]\n",name, value);
+
+	    	if (valType==type_CHARVECTOR) printf("\n");
 		
 	    } else {
-		value=strings[stringsOffset];
-		stringsOffset++;
-		printf("\t%s: %s\n", name, value);
+	    	value=strings[stringsOffset];
+	    	stringsOffset++;
+	    	printf("\t%s: %s\n", name, value);
 	    }
 	}
 	return result;
@@ -386,7 +386,7 @@ errType menuString::printAnswer (char** strings)
 errType menuString::paramToStringDecode(const void* ptr, OrtsType paramType, char** string)
 {
 	// length=0 for scalars and WORD for vector types
-	
+	int length, offset, elQnty;
 
 	errType result=err_not_init;
 
@@ -439,8 +439,22 @@ errType menuString::paramToStringDecode(const void* ptr, OrtsType paramType, cha
 			result=err_result_ok;
 			break;
 			
+	    case type_DWORDVECTOR:
+	    	length = *(WORD*)ptr;
+	    	elQnty = length / sizeof(DWORD);
+
+	    	*string=new char[12 * elQnty];
+	    	offset = sizeof(WORD);
+	    	for (int b=0; b < elQnty;b++)	{
+	    		offset=2 + b*sizeof(DWORD);
+	    		sprintf(*string + 12*b, "0x%.8X  ", *(DWORD*)(ptr+offset));
+	    	}
+
+	    	result=err_result_ok;
+	    	break;
+
 	    default:
-			printf("unrecognized type\n");
+			printf("unrecognized type %d\n", paramType);
 			break;
 	}
 
