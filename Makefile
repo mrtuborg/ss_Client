@@ -13,9 +13,9 @@ release_build_dir	:=$(root_build_dir)/Release
 program_name		:= ss_Client
 service_name		:= $(program_name)_$(id)
 
-core_include_dir	:= include
 core_source_dir		:= core
-core_source_subdirs	:= . arg_parser
+core_source_subdirs	:= .
+core_include_dir	:= $(addprefix $(core_source_dir)/, $(core_source_subdirs))
 
 
 paths_to_libraries	:= ../libs
