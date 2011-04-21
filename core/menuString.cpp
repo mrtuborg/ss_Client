@@ -351,7 +351,6 @@ errType menuString::printAnswer (char** strings)
 	OrtsType valType;
 	
 	printf("\tРасшифровка:\n");
-	printf("\tresultsQnty: %d\n",resultsQnty);
 	for (int i=0; i<resultsQnty; i++){
 	    //printf("i=%d\n",i);
 	    valType=resultStrings[i]->getParamType();
@@ -453,8 +452,8 @@ errType menuString::paramToStringDecode(const void* ptr, OrtsType paramType, cha
 	    	*string=new char[12 * elQnty];
 	    	offset = sizeof(WORD);
 	    	for (int b=0; b < elQnty;b++)	{
-	    		offset=2 + b*sizeof(DWORD);
-	    		sprintf(*string + 12*b, "0x%.8X  ", *(DWORD*)(ptr+offset));
+	    		offset = 2 + b*sizeof(DWORD);
+	    		sprintf(*string + 12*b, "0x%.8X  ",*(DWORD*)((BYTE*)ptr+offset));
 	    	}
 
 	    	result=err_result_ok;

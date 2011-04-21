@@ -32,7 +32,7 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[5]=new menuString(5,"Запрос идентификаторов выполняющегося задания", 1, 2, sndAct, rcvAct);
     menu[6]=new menuString(6,"Запрос содержимого операции", 2, 8, sndAct, rcvAct);
     menu[7]=new menuString(7,"Запрос списка идентификаторов операций", 1, 2, sndAct, rcvAct);
-    menu[8]=new menuString(8,"Запустить задание на исполнение", 3, 1, sndAct, rcvAct);
+    menu[8]=new menuString(8,"Запустить задание на исполнение", 2, 1, sndAct, rcvAct);
     
     menu[32]=new menuString(32,"Аварийное завершение подсистемы", 0, 1, sndAct, rcvAct);
     menu[33]=new menuString(33,"Смена оперативного режима службы",1, 1, sndAct, rcvAct);
@@ -65,7 +65,6 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
 
     menu[8]->paramsConstruct(0, "Идентификатор пакетного задания", type_BYTE, &coord_type);
     menu[8]->paramsConstruct(1, "Идентификатор операции", type_DWORD, &coord_type);
- //   menu[8]->paramsConstruct(2, "Отложить запуск, сек", type_BYTE, &coord_type);
 
     menu[33]->paramsConstruct(0, "Новый оперативный режим", type_BYTE, &zeroValue);
     
