@@ -29,7 +29,7 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[2]=new menuString(2,"Запустить пакетное задание на исполнение", 1, 1, sndAct, rcvAct);
     menu[3]=new menuString(3,"Остановить выполнение пакетного задания", 1, 1, sndAct, rcvAct);
     menu[4]=new menuString(4,"Запрос статуса операции", 2, 3, sndAct, rcvAct);
-    menu[5]=new menuString(5,"Запрос идентификатора выполняющегося задания", 0, 1, sndAct, rcvAct);
+    menu[5]=new menuString(5,"Запрос идентификаторов выполняющегося задания", 1, 2, sndAct, rcvAct);
     menu[6]=new menuString(6,"Запрос содержимого операции", 2, 8, sndAct, rcvAct);
     menu[7]=new menuString(7,"Запрос списка идентификаторов операций", 1, 2, sndAct, rcvAct);
     menu[8]=new menuString(8,"Запустить задание на исполнение", 3, 1, sndAct, rcvAct);
@@ -81,7 +81,7 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
     menu[4]->resultsConstruct(2, "Ответ исполнителя", type_BYTEVECTOR, &zeroValue);
     
     menu[5]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
-    menu[5]->resultsConstruct(1, "Идентификатор операции", type_DWORD, &resValue);
+    menu[5]->resultsConstruct(1, "Идентификаторы исполняющихся операций", type_DWORDVECTOR, &resValue);
     
     menu[6]->resultsConstruct(0, "Квитанция исполнения", type_ERRTYPE, &resValue);
     menu[6]->resultsConstruct(1, "Идентификатор следующей операции", type_DWORD, &func_mode);

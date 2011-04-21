@@ -155,6 +155,8 @@ void printMenu(menuString **menu)
  printf("-------------------------------------------------------------------\n");
 }
 
+#ifndef ECUT_MAIN
+
 int main(char argc, char *argv[]) {
 	errType result=err_result_ok;
 	errType ret=process_cmdLine(argc, argv);
@@ -222,3 +224,4 @@ int main(char argc, char *argv[]) {
 	
 	return 0;
 }
+#endif // ECUT_MAIN

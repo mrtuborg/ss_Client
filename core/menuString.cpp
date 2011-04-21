@@ -209,12 +209,19 @@ errType menuString::execMenu()
 			    value=(BYTE*)strVal;
 			    break;
 		    case type_BYTEVECTOR:
-		    		scanf("%s", strVal);
-		    		value=(BYTE*)strVal;
-
-		    		break;
+		    	scanf("%s", strVal);
+		    	value=(BYTE*)strVal;
+		    	break;
+		    case type_WORDVECTOR:
+		    	scanf("%s", strVal);
+		    	value=(BYTE*)strVal;
+		    	break;
+		    case type_DWORDVECTOR:
+		    	scanf("%s", strVal);
+		    	value=(BYTE*)strVal;
+		    	break;
 		    default:
-		    		printf("unrecognized type\n");
+		    		printf("entering new value: unrecognized type\n");
 		    		break;
 		} // switch
 		    
