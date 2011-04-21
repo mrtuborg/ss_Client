@@ -13,7 +13,7 @@ release_build_dir	:=$(root_build_dir)/Release
 program_name		:= ss_Client
 service_name		:= $(program_name)_$(id)
 
-core_source_dir		:= core
+core_source_dir		:= core test
 core_source_subdirs	:= .
 core_include_dir	:= $(addprefix $(core_source_dir)/, $(core_source_subdirs))
 

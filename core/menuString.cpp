@@ -214,14 +214,14 @@ errType menuString::execMenu()
 		    	break;
 		    case type_WORDVECTOR:
 		    	scanf("%s", strVal);
-		    	value=(WORD*)strVal;
+		    	value=(BYTE*)strVal;
 		    	break;
 		    case type_DWORDVECTOR:
 		    	scanf("%s", strVal);
-		    	value=(DWORD*)strVal;
+		    	value=(BYTE*)strVal;
 		    	break;
 		    default:
-		    		printf("unrecognized type\n");
+		    		printf("entering new value: unrecognized type\n");
 		    		break;
 		} // switch
 		    

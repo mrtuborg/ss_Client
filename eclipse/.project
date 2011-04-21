@@ -91,6 +91,11 @@
 			<type>2</type>
 			<locationURI>PROJECT_DIR/services</locationURI>
 		</link>
+		<link>
+			<name>test</name>
+			<type>2</type>
+			<locationURI>PROJECT_DIR/test</locationURI>
+		</link>
 	</linkedResources>
 	<variableList>
 		<variable>
