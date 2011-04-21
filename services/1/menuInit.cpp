@@ -65,7 +65,7 @@ errType menuInit(menuString **menu, udpAction *sndAct, udpAction *rcvAct)
 
     menu[8]->paramsConstruct(0, "Идентификатор пакетного задания", type_BYTE, &coord_type);
     menu[8]->paramsConstruct(1, "Идентификатор операции", type_DWORD, &coord_type);
-    menu[8]->paramsConstruct(2, "Отложить запуск, сек", type_BYTE, &coord_type);
+ //   menu[8]->paramsConstruct(2, "Отложить запуск, сек", type_BYTE, &coord_type);
 
     menu[33]->paramsConstruct(0, "Новый оперативный режим", type_BYTE, &zeroValue);
     

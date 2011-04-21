@@ -174,7 +174,8 @@ errType menuParam::printString()
 
 	case type_DWORDVECTOR:
 			     printf("[ %s: \"", paramName);
-			     for (int i=4; i<*(WORD*)value; i+=4) printf("%.8X ", value[i]);
+			     vector_length=*(WORD*)value;
+			     for (int i=2; i<vector_length; i+=4) printf("%.8X ", value[i]);
 			     printf("\"]");
 	break;
 
