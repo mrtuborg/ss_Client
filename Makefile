@@ -40,8 +40,8 @@ lib_dirs+=$(addprefix $(paths_to_libraries)/math/, $(lib_subdirs))
 include $(addprefix $(paths_to_libraries)/,storage/Makefile.inc)
 lib_dirs+=$(addprefix $(paths_to_libraries)/storage/, $(lib_subdirs))
 
-include $(addprefix $(paths_to_libraries)/,system/Makefile.inc)
-lib_dirs+=$(addprefix $(paths_to_libraries)/system/, $(lib_subdirs))
+include $(addprefix $(paths_to_libraries)/,parsers/Makefile.inc)
+lib_dirs+=$(addprefix $(paths_to_libraries)/parsers/, $(lib_subdirs))
 
 include $(addprefix $(paths_to_libraries)/,peripheral/Makefile.inc)
 lib_dirs+=$(addprefix $(paths_to_libraries)/peripheral/, $(lib_subdirs))
