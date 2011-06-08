@@ -3,7 +3,7 @@
 #include <string.h>
 //#include "auto_config.h"
 
-#include <system/arg_parser/carg_parser.h>
+#include <parsers/arg_parser/carg_parser.h>
 
 char PROGVERSION[255] = "0.1";
 char Program_name[255]    = "Клиент консоли серверов СУК НОЛС ТИ";
@@ -34,7 +34,7 @@ void show_help( const char verbose )
 
 void show_version()
 {
-  printf( "%s версия %s (ревизия №%s)\n", Program_name, PROGVERSION, REVISION);
+  printf( "%s версия %s (ревизия #%s)\n", Program_name, PROGVERSION, REVISION);
   /*printf( "Copyright (C) %s Vladimir A. Nosenko.\n", program_year );
   printf( "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n" );
   printf( "This is free software: you are free to change and redistribute it.\n" );
